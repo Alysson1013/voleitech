@@ -1,0 +1,39 @@
+scalar Date
+
+type Usuario {
+    id: int 
+    nome: String
+    email: String
+    token: String
+    dt_nasc: Date
+    n_inscricao_t: String
+    descricao: String
+}
+
+input UsuarioInput {
+    nome: String
+    email: String
+    dt_nasc: Date
+    n_inscricao_t: String
+    descricao: String
+    senha: String
+}
+
+input UsuarioRegistrarInput {
+    nome: String!
+    email: String!
+    dt_nasc: Date!
+    n_inscricao_t: String!
+    descricao: String
+    senha: String!
+}
+
+input UsuarioLoginInput {
+    email: String!
+    senha: String!
+}
+
+input UsuarioFiltro {
+    id: Int
+    email: String
+}
