@@ -17,18 +17,19 @@ module.exports = {
     },
     usuarios(_, args, ctx) {
         ctx && ctx.validarAdmin()
-        return db('usuarios')
+        return db('usuario')
     },
-    usuario(_, { filtros }, ctx) {
+    usuario(_, { filtro }, ctx) {
         ctx && ctx.validarUsuarioFiltro()
+        
         if (!filtro) return null
         const { id, email } = filtro
         if (id) {
-            return db('usuarios')
+            return db('usuario')
                 .where({ id })
                 .first()
         } else if (email) {
-            return db('usuarios')
+            return db('usuario')
                 .where({ email })
                 .first()
         } else {
