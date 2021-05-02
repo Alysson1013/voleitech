@@ -16,8 +16,8 @@ module.exports = {
         const authSecret = process.env.APP_AUTH_SECRET
 
         return {
-            ...usuarioInfo,
-            token: jwt.encode(usuarioInfo, authSecret)
+            ...userInfo,
+            token: jwt.encode(userInfo, authSecret)
         }
     }
 }

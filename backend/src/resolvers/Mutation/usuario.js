@@ -2,13 +2,14 @@ const db = require('../../../config/db')
 const bcrypt = require('bcrypt-nodejs')
 const { usuario: obterUsuario } = require('../Query/usuario')
 
+
 const mutations = {
     registrarUsuario(_, { dados }) {
+        console.log("Aqui")
         return mutations.novoUsuario(_, {
             dados: {
                 nome: dados.nome,
                 email: dados.email,
-                senha: dados.senha,
                 dt_nasc: dados.dt_nasc,
                 n_inscricao_t: dados.n_inscricao_t,
                 descricao: dados.descricao,
@@ -17,6 +18,8 @@ const mutations = {
         })
     },
     async novoUsuario(_, { dados }, ctx) {
+        ctx && ctx.validarAdmin()
+
         try {
             const salt = bcrypt.genSaltSync()
             dados.senha = bcrypt.hashSync(dados.senha, salt)
@@ -26,11 +29,12 @@ const mutations = {
             const [id] = await db('usuario')
                 .insert(dados)
 
+            console.log(dados)
             return db('usuario')
                 .where({ id })
                 .first()
         } catch (error) {
-            throw new Error(e.sqlMessage)
+            throw new Error(error.sqlMessage)
         }
     },
     async excluirUsuario(_, args, ctx) {
@@ -69,3 +73,5 @@ const mutations = {
         }
     }
 }
+
+module.exports = mutations
