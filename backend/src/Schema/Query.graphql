@@ -1,5 +1,0 @@
-type Query {
-    login(dados: UsuarioLoginInput!): Usuario
-    usuarios: [Usuario]
-    usuario(filtro: UsuarioFiltro!): Usuario 
-}
