@@ -24,6 +24,7 @@ exports.up = function(knex) {
         table.float('jump_distance')
         table.float('jump_height')
         table.string('describe', 500)
+        table.timestamp('created_at').defaultTo(knex.fn.now());
 
         table.foreign('user_id').references('users.id')
     })
