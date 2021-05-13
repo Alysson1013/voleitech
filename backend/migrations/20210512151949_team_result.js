@@ -14,7 +14,7 @@ exports.up = function(knex) {
         table.float('average_block_mistake')
         table.float('average_lifting')
         table.float('average_lifting_mistake')
-        table.timestamp('created_at').defaultTo(knex.fn.now());
+        table.timestamp('created_at').defaultTo(knex.fn.now())
 
         table.foreign('team_id').references('teams.id')
     })

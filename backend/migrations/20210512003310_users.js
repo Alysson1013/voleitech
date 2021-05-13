@@ -9,7 +9,7 @@ exports.up = function (knex) {
         table.string('describe', 500).notNull().unique()
         table.datetime('dt_birth').notNull()
         table.boolean('status').notNull().defaultTo(true)
-        table.timestamp('created_at').defaultTo(knex.fn.now());
+        table.timestamp('created_at').defaultTo(knex.fn.now())
     })
 };
 

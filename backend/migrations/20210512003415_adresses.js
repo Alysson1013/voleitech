@@ -11,7 +11,7 @@ exports.up = function(knex) {
         table.integer('number').notNull()
         table.string('complement', 100).notNull()
         table.string('describe', 500).notNull()
-        table.timestamp('created_at').defaultTo(knex.fn.now());
+        table.timestamp('created_at').defaultTo(knex.fn.now())
 
         table.foreign('colab_id').references('collaborators.id')
     })
