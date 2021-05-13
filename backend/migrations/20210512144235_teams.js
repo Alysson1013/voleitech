@@ -11,6 +11,7 @@ exports.up = function(knex) {
         table.float('average_height')
         table.float('average_weight')
         table.string('describe', 500)
+        table.timestamp('created_at').defaultTo(knex.fn.now());
 
         table.foreign('user_id').references('users.id')
         table.foreign('category_id').references('team_category.id')

@@ -4,6 +4,7 @@ exports.up = function(knex) {
         table.increments('id').primary()
         table.string('name_category', 100).notNull().unique()
         table.string('describe', 500)
+        table.timestamp('created_at').defaultTo(knex.fn.now());
     })
 };
 
