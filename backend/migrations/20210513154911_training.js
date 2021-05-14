@@ -8,7 +8,7 @@ exports.up = function(knex) {
         table.datetime('dt_training').notNull()
         table.time('hour_start').notNull()
         table.time('hour_finish')
-        table.timestamp('data_criacao').defaultTo(knex.fn.now())
+        table.timestamp('created_at').defaultTo(knex.fn.now())
 
         table.foreign('training_type_id').references('training_type.id')
         table.foreign('team_id').references('teams.id')
