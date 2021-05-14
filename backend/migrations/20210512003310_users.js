@@ -6,7 +6,7 @@ exports.up = function (knex) {
         table.string('email').notNull().unique()
         table.string('password', 300).notNull()
         table.string('n_enrollment').notNull().unique()
-        table.string('describe', 500).notNull().unique()
+        table.string('describe', 500).notNull()
         table.datetime('dt_birth').notNull()
         table.boolean('status').notNull().defaultTo(true)
         table.timestamp('created_at').defaultTo(knex.fn.now())

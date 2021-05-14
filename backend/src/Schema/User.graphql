@@ -1,0 +1,8 @@
+type User {
+    id: Int
+    name: String
+    email: String
+    n_enrollment: String
+    describe: String
+    dt_birth: String
+}
