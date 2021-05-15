@@ -1,6 +1,6 @@
 # voleitech
 
-##Executando Projeto
+## Executando Projeto
 
 1. Mudar para diretório backend.
 ```
