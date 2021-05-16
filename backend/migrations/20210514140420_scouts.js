@@ -2,6 +2,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('scouts', table => {
         table.increments('id').primary()
+        table.integer('user_id').unsigned().notNull()
         table.integer('v_floating_serve')
         table.integer('v_floating_serve_points')
         table.integer('v_floating_serve_mistake')
@@ -34,6 +35,8 @@ exports.up = function(knex) {
         table.integer('v_initiative_lack')
         table.timestamp('created_at').defaultTo(knex.fn.now())
         table.timestamp('updated_at').defaultTo(knex.fn.now())
+        
+        table.foreign('user_id').references('users.id')
     })
 };
 
