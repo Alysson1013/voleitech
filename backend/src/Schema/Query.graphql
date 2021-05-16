@@ -1,4 +1,5 @@
 type Query {
     login(data: SignInInput): User!
     users: [User]
+    user(filter: UserFilter): User
 }
