@@ -21,3 +21,8 @@ input SignInInput {
     email: String!
     password: String!
 }
+
+input UserFilter {
+    id: Int
+    name: String
+}
