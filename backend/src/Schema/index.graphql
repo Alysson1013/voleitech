@@ -1,2 +1,4 @@
 #import User from 'User.graphql'
 #import Query from 'Query.graphql'
+
+scalar Date

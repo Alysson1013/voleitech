@@ -6,3 +6,17 @@ type User {
     describe: String
     dt_birth: String
 }
+
+input SignUpInput {
+    name: String!
+    email: String!
+    password: String!
+    n_enrollment: String!
+    describe: String!
+    dt_birth: Date!
+} 
+
+input SignInInput {
+    email: String!
+    password: String!
+}
