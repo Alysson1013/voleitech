@@ -5,6 +5,7 @@ type User {
     n_enrollment: String
     describe: String
     dt_birth: String
+    status: Boolean
 }
 
 input SignUpInput {
