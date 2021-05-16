@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt-nodejs')
 const { user: getUser } = require('../Query/user')
 
 const mutations = {
-    signUpUser(_, { data }) {
+    async signupUser(_, { data }) {
         try {
             //Criptografar Senha
             const salt = bcrypt.genSaltSync()

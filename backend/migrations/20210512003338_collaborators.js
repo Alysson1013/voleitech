@@ -17,7 +17,7 @@ exports.up = function(knex) {
         table.string('positions', 150)
         table.integer('n_uniform')
         table.float('height')
-        table.float('Weight')
+        table.float('weight')
         table.float('width')
         table.enu('gender', ['male', 'female'])
         table.float('bmi')

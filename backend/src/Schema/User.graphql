@@ -6,6 +6,7 @@ type User {
     describe: String
     dt_birth: String
     status: Boolean
+    token: String
 }
 
 input SignUpInput {
