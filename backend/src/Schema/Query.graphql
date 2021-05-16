@@ -1,4 +1,4 @@
 type Query {
-    login(data: SignUpInput): User!
+    login(data: SignInInput): User!
     users: [User]
 }
