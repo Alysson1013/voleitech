@@ -1,4 +1,4 @@
-type Adresses {
+type Address {
     id: Int
     colab_id: Int
     main: Boolean
@@ -11,6 +11,6 @@ type Adresses {
     describe: String
 }
 
-input AdressesFilter {
+input AdressFilter {
     id: Int
 }
