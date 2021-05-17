@@ -8,9 +8,9 @@ exports.up = function(knex) {
         table.string('uf', 2).notNull()
         table.string('district', 200).notNull()
         table.string('road', 100).notNull()
-        table.integer('number').notNull()
-        table.string('complement', 100).notNull()
-        table.string('describe', 500).notNull()
+        table.integer('number')
+        table.string('complement', 100)
+        table.string('describe', 500)
         table.timestamp('created_at').defaultTo(knex.fn.now())
 
         table.foreign('colab_id').references('collaborators.id')
