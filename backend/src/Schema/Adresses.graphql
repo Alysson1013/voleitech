@@ -1,0 +1,16 @@
+type Adresses {
+    id: Int
+    colab_id: Int
+    main: Boolean
+    cep: String
+    uf: String
+    district: String
+    road: String
+    number: Int
+    complement: String
+    describe: String
+}
+
+input AdressesFilter {
+    id: Int
+}
