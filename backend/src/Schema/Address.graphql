@@ -1,6 +1,6 @@
 type Address {
     id: Int
-    colab_id: Int
+    colab: Collaborator
     main: Boolean
     cep: String
     uf: String
