@@ -22,4 +22,5 @@ type Collaborator {
     jump_height: Float
     describe: String
     created_at: String
+    user: User
 }
