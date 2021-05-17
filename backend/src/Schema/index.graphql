@@ -1,4 +1,5 @@
 #import User from 'User.graphql'
+#import Collaborator from 'Collaborator.graphql'
 #import Query from 'Query.graphql'
 #import Mutation from 'Mutation.graphql'
 

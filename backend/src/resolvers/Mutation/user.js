@@ -1,6 +1,5 @@
 const db = require('../../../config/db')
 const bcrypt = require('bcrypt-nodejs')
-const { user: getUser } = require('../Query/user')
 
 const mutations = {
     async signupUser(_, { data }) {

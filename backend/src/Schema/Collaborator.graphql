@@ -24,3 +24,7 @@ type Collaborator {
     created_at: String
     user: User
 }
+
+input CollaboratorFilter {
+    id: Int
+}
