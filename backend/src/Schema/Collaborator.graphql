@@ -28,3 +28,29 @@ type Collaborator {
 input CollaboratorFilter {
     id: Int
 }
+
+input CollaboratorInput {
+    phone_1: String
+    phone_2: String
+    phone_3: String
+    email_1: String
+    email_2: String
+    email_3: String
+    name: String
+    dt_birth: Date
+    function: String
+    n_enrollment_atl: String
+    n_enrollment_ast: String
+    positions: String
+    n_uniform: Int
+    height: Float
+    weight: Float
+    width: Float
+    gender: String
+    bmi: Float
+    jump_distance: Float
+    jump_height: Float
+    describe: String
+    created_at: String
+    user_id: Int
+}
