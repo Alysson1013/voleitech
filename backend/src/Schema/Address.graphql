@@ -11,7 +11,7 @@ type Address {
     describe: String
 }
 
-input AdressFilter {
+input AddressFilter {
     id: Int
     colab_id: Int
 }
