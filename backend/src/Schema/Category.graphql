@@ -1,0 +1,15 @@
+type Category {
+    id: Int
+    name: String
+    describe: String
+}
+
+input CategoryInput {
+    name: String
+    describe: String
+}
+
+input CategoryFilter {
+    id: Int
+    name: String
+}
