@@ -15,3 +15,16 @@ input AddressFilter {
     id: Int
     colab_id: Int
 }
+
+input AddressInput {
+    id: Int
+    colab: Int
+    main: Boolean
+    cep: String
+    uf: String
+    district: String
+    road: String
+    number: Int
+    complement: String
+    describe: String
+}
