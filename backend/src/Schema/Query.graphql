@@ -7,4 +7,5 @@ type Query {
     adresses: [Address]
     address(filter: AddressFilter): [Address]
     categories: [Category]
+    
 }

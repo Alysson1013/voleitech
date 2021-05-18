@@ -2,7 +2,6 @@
 exports.up = function(knex) {
     return knex.schema.createTable('teams', table => {
         table.increments('id').primary()
-        table.integer('user_id').unsigned().notNull()
         table.integer('category_id').unsigned().notNull()
         table.enu('gender', ['male', 'female']).notNull()
         table.string('name').unique().notNull()
@@ -13,7 +12,6 @@ exports.up = function(knex) {
         table.string('describe', 500)
         table.timestamp('created_at').defaultTo(knex.fn.now())
 
-        table.foreign('user_id').references('users.id')
         table.foreign('category_id').references('team_category.id')
     })
 };
