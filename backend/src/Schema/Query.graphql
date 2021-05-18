@@ -4,5 +4,6 @@ type Query {
     user(filter: UserFilter): User
     collaborators: [Collaborator]
     collaborator(filter: CollaboratorFilter): Collaborator
-    address: [Address]
+    adresses: [Address]
+    address(filter: AddressFilter): [Address]
 }

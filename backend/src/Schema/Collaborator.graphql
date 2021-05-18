@@ -23,6 +23,7 @@ type Collaborator {
     describe: String
     created_at: String
     user: User
+    adresses: [Address]
 }
 
 input CollaboratorFilter {
