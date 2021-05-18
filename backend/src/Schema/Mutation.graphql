@@ -5,4 +5,7 @@ type Mutation {
     newCollaborator(
         data: CollaboratorInput
     ): Collaborator!
+    newAddress(
+        data: AddressInput
+    ): Address!
 }
