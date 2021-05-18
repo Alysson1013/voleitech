@@ -1,15 +1,15 @@
 type Category {
     id: Int
-    name: String
+    name_category: String
     describe: String
 }
 
 input CategoryInput {
-    name: String
+    name_category: String
     describe: String
 }
 
 input CategoryFilter {
-    id: Int
+    category_name: String
     name: String
 }

@@ -6,4 +6,5 @@ type Query {
     collaborator(filter: CollaboratorFilter): Collaborator
     adresses: [Address]
     address(filter: AddressFilter): [Address]
+    categories: [Category]
 }
