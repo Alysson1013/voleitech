@@ -2,6 +2,7 @@ type Category {
     id: Int
     name_category: String
     describe: String
+    user_id: Int
 }
 
 input CategoryInput {

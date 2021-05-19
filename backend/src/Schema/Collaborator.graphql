@@ -53,5 +53,4 @@ input CollaboratorInput {
     jump_height: Float
     describe: String
     created_at: String
-    user_id: Int
 }
