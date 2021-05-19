@@ -8,4 +8,7 @@ type Mutation {
     newAddress(
         data: AddressInput
     ): Address!
+    newCategory(
+        data: CategoryInput
+    ): Category!
 }
