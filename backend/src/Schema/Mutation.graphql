@@ -11,4 +11,7 @@ type Mutation {
     newCategory(
         data: CategoryInput
     ): Category!
+    newTeam(
+        data: TeamInput
+    ): Team!
 }
