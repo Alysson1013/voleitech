@@ -1,6 +1,6 @@
 type Team {
     id: Int
-    category: Category
+    category: String
     gender: String
     name: String
     average_result: Float

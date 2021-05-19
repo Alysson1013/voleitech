@@ -8,4 +8,5 @@ type Query {
     address(filter: AddressFilter): [Address]
     categories: [Category]
     category(filter: CategoryFilter): [Category]
+    teams: [Team]
 }
