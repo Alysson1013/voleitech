@@ -8,7 +8,7 @@ cd backend
 ```
 2. Instalar dependencias.
 ```
-npm install
+yarn
 ```
 3. Criar arquivo .env com informações do banco de de dados, chave de criptografia e informações do projeto.
 ```
