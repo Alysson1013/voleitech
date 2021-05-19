@@ -9,4 +9,5 @@ type Query {
     categories: [Category]
     category(filter: CategoryFilter): [Category]
     teams: [Team]
+    team(filter: TeamFilter): Team
 }

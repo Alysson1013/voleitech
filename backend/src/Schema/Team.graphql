@@ -10,3 +10,8 @@ type Team {
     describe: String
     user_id: Int
 }
+
+input TeamFilter {
+    id: Int
+    name: String
+}
