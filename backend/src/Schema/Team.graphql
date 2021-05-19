@@ -10,6 +10,8 @@ type Team {
     average_weight: Float
     describe: String
     user_id: Int
+    assignment: String
+    status: Boolean
 }
 
 input TeamFilter {

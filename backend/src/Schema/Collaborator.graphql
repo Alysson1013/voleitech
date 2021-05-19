@@ -24,6 +24,7 @@ type Collaborator {
     created_at: String
     user: User
     adresses: [Address]
+    teams: [Team]
 }
 
 input CollaboratorFilter {
