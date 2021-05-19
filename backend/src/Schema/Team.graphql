@@ -1,0 +1,12 @@
+type Team {
+    id: Int
+    category: Category
+    gender: String
+    name: String
+    average_result: Float
+    average_age: Float
+    average_height: Float
+    average_weight: Float
+    describe: String
+    user_id: Int
+}
