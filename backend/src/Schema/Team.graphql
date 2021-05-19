@@ -16,3 +16,14 @@ input TeamFilter {
     id: Int
     name: String
 }
+
+input TeamInput {
+    name: String
+    gender: String
+    category_id: Int
+    average_result: Float
+    average_age: Float
+    average_height: Float
+    average_weight: Float
+    describe: String
+}
