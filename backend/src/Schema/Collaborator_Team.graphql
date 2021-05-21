@@ -11,3 +11,11 @@ type Collaborator_Team {
 input CollaboratorTeamFilter {
     id: Int
 }
+
+input CollaboratorTeamInput {
+    id: Int
+    collaborator_id: Int
+    team_id: Int
+    function: String
+    status: Boolean   
+}
