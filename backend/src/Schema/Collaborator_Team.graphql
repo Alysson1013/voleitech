@@ -1,0 +1,7 @@
+type Collaborator_Team {
+    id: Int
+    collaborator: Collaborator
+    team_id: Team 
+    function: String
+    status: Boolean   
+}

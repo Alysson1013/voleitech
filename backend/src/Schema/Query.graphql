@@ -10,4 +10,5 @@ type Query {
     category(filter: CategoryFilter): [Category]
     teams: [Team]
     team(filter: TeamFilter): Team
+    collaborators_teams: [Collaborator_Team] 
 }

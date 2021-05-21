@@ -2,9 +2,8 @@ const db = require('../../../config/db')
 
 const mutations = {
     async newCollaborator(_, { data }, ctx) {
+        ctx && ctx.userValidate()
         try {
-            ctx && ctx.userValidate()
-
             data.user_id = ctx.user.id
             const [id] = await db('collaborators')
                 .insert(data)
