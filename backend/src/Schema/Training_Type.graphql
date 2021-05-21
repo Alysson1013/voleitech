@@ -1,0 +1,10 @@
+type Training_Type {
+    id: Int
+    training_type_name: String
+    describe: String
+}
+
+input Training_Type_Input {
+    training_type_name: String
+    describe: String
+}
