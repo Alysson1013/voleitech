@@ -7,3 +7,7 @@ type Collaborator_Team {
     function: String
     status: Boolean   
 }
+
+input CollaboratorTeamFilter {
+    id: Int
+}
