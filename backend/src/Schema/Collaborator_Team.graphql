@@ -13,8 +13,6 @@ input CollaboratorTeamFilter {
 }
 
 input CollaboratorTeamInput {
-    id: Int
-    collaborator_id: Int
     team_id: Int
     function: String
     status: Boolean   

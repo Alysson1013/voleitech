@@ -41,6 +41,7 @@ input CollaboratorInput {
     name: String
     dt_birth: Date
     function: String
+    teams: [CollaboratorTeamInput]
     n_enrollment_atl: String
     n_enrollment_ast: String
     positions: String
