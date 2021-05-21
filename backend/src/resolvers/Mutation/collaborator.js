@@ -8,14 +8,22 @@ const mutations = {
             const teams = data.teams 
             delete data.teams
 
+            const adresses = data.adresses
+            delete data.adresses
+
             const [id] = await db('collaborators')
                 .insert(data)
 
             for (let team of teams) {
                 team.collaborator_id = id
-                console.log(team)
                 await db('collaborators_teams')
                     .insert(team)
+            }
+
+            for (let address of adresses){
+                address.colab_id = id
+                await db('adresses')
+                    .insert(address)
             }
 
             return db('collaborators')

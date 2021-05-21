@@ -17,7 +17,6 @@ input AddressFilter {
 }
 
 input AddressInput {
-    id: Int
     colab_id: Int 
     main: Boolean
     cep: String
