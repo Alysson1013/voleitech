@@ -1,7 +1,9 @@
 type Collaborator_Team {
     id: Int
+    collaborator_id: Int
     collaborator: Collaborator
-    team_id: Team 
+    team_id: Int
+    team: Team
     function: String
     status: Boolean   
 }
