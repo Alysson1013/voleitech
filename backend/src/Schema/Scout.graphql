@@ -1,5 +1,5 @@
 type Scout {
-    id: String
+    id: Int
     name: String
     v_floating_serve: Int
     v_floating_serve_points: Int
@@ -68,6 +68,6 @@ input Scout {
 }
 
 input Scout_Filter {
-    id: String
+    id: Int
     name: String
 }

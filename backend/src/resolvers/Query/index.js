@@ -5,6 +5,7 @@ const category = require('./category')
 const team = require('./team')
 const collaborators_teams = require('./collaborator_team')
 const training_type = require('./training_type')
+const scout = require('./scout')
 
 module.exports = {
     ...address,
@@ -13,5 +14,6 @@ module.exports = {
     ...team,
     ...collaborators_teams,
     ...training_type,
+    ...scout,
     ...user
 }
