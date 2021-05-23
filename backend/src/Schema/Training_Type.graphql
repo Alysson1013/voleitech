@@ -8,3 +8,8 @@ input Training_Type_Input {
     training_type_name: String
     describe: String
 }
+
+input Training_Type_Filter {
+    id: Int
+    training_type_name: String
+}

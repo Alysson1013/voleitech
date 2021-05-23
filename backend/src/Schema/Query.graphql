@@ -12,4 +12,6 @@ type Query {
     team(filter: TeamFilter): Team
     collaborators_teams: [Collaborator_Team] 
     collaborator_team(filter: CollaboratorTeamFilter): Collaborator_Team 
+    trainings_types: [Training_Type]
+    training_type(filter: Training_Type_Filter): Training_Type
 }
