@@ -17,4 +17,7 @@ type Mutation {
     newCollaboratorTeam(
         data: CollaboratorTeamInput
     ): Collaborator_Team!
+    newTrainingType(
+        data: Training_Type_Input 
+    ): Training_Type!
 }

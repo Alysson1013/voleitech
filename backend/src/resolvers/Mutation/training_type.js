@@ -1,12 +1,12 @@
 const db = require('../../../config/db')
 
 const mutations = {
-    async newTeam(_, { data }, ctx) {
+    async newTrainingType(_, { data }, ctx) {
         ctx && ctx.userValidate()
         try {
-            const [id] = await db('teams')
+            const [id] = await db('training_type')
                 .insert(data)
-            return db('teams')
+            return db('training_type')
                 .where({ id })
                 .first()
         } catch (error) {
