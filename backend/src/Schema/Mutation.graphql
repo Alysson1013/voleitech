@@ -20,4 +20,7 @@ type Mutation {
     newTrainingType(
         data: Training_Type_Input 
     ): Training_Type!
+    newScout(
+        data: ScoutInput
+    ): Scout!
 }

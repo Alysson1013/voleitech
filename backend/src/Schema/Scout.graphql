@@ -33,7 +33,7 @@ type Scout {
     v_initiative_lack: Int
 }
 
-input Scout {
+input ScoutInput {
     name: String
     v_floating_serve: Int
     v_floating_serve_points: Int
