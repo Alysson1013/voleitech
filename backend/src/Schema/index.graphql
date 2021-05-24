@@ -10,3 +10,4 @@
 #import Mutation from 'Mutation.graphql'
 
 scalar Date
+scalar Time

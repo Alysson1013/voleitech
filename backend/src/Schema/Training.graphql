@@ -1,0 +1,10 @@
+type Training {
+    id: Int
+    training_type: Int
+    team: Int
+    scout: Int
+    name: String
+    dt_training: Date
+    hour_start: Time
+    hour_end: Time
+}
