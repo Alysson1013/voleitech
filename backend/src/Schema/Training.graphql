@@ -12,3 +12,13 @@ type Training {
 input TrainingFilter {
     id: Int
 }
+
+input TrainingInput {
+    training_type: Training_Type_Filter
+    team: TeamFilter
+    scout: Scout_Filter
+    name: String
+    dt_training: Date
+    hour_start: Time
+    hour_finish: Time
+}
