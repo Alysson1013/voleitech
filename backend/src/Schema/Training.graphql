@@ -1,10 +1,14 @@
 type Training {
     id: Int
-    training_type: Int
-    team: Int
-    scout: Int
+    training_type: Training_Type 
+    team: Team
+    scout: Scout
     name: String
     dt_training: Date
     hour_start: Time
-    hour_end: Time
+    hour_finish: Time
+}
+
+input TrainingFilter {
+    id: Int
 }

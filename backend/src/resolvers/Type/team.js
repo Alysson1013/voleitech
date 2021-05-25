@@ -4,7 +4,7 @@ module.exports = {
     category(team) {
         return db
             .select(["name_category", "team_category.describe as describe"])
-            .table("teams")
+            .from("teams")
             .innerJoin("team_category", "teams.category_id", "team_category.id")
             .whereRaw(`teams.category_id = ${team.category_id}`)
             .first()
