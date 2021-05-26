@@ -26,4 +26,7 @@ type Mutation {
     newTraining(
         data: TrainingInput
     ): Training!
+    newResult(
+        data: ResultInput
+    ): Result!
 }

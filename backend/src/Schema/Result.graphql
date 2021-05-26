@@ -1,6 +1,7 @@
 type Result {
     id: Int
     dt_result: Date
+    general_points: Int
     n_floating_serve: Int
     n_floating_serve_points: Int
     n_floating_serve_mistake: Int
@@ -35,8 +36,8 @@ type Result {
 }
 
 input ResultInput {
-    id: Int
     dt_result: Date
+    general_points: Int
     n_floating_serve: Int
     n_floating_serve_points: Int
     n_floating_serve_mistake: Int
