@@ -1,0 +1,19 @@
+type Athlete_Training_Result {
+    id: Int
+    collaborator_athlete_id: Int
+    training_id: Int
+    result_id: Int
+    collaborator: Collaborator
+    training: Training
+    result: Result
+}
+
+input Athlete_Training_Result_Input {
+    collaborator: CollaboratorTeamFilter
+    training: TrainingFilter
+    result: ResultFilter
+}
+
+input Athlete_Training_Result_Input {
+    id: Int
+}
