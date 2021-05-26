@@ -5,7 +5,8 @@ const mutations = {
         ctx && ctx.userValidate()
         try {
             data.user_id = ctx.user.id
-            const teams = data.teams 
+
+            const teams = data.teams
             delete data.teams
 
             const adresses = data.adresses
@@ -14,16 +15,20 @@ const mutations = {
             const [id] = await db('collaborators')
                 .insert(data)
 
-            for (let team of teams) {
-                team.collaborator_id = id
-                await db('collaborators_teams')
-                    .insert(team)
+            if (teams) {
+                for (let team of teams) {
+                    team.collaborator_id = id
+                    await db('collaborators_teams')
+                        .insert(team)
+                }
             }
 
-            for (let address of adresses){
-                address.colab_id = id
-                await db('adresses')
-                    .insert(address)
+            if (adresses) {
+                for (let address of adresses) {
+                    address.colab_id = id
+                    await db('adresses')
+                        .insert(address)
+                }
             }
 
             return db('collaborators')
