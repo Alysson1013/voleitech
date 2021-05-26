@@ -7,6 +7,7 @@
 #import Collaborator_Team from 'Collaborator_Team.graphql'
 #import Scout from 'Scout.graphql'
 #import Training from 'Training.graphql'
+#import Result from 'Result.graphql'
 #import Query from 'Query.graphql'
 #import Mutation from 'Mutation.graphql'
 

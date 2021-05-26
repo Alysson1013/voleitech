@@ -18,4 +18,6 @@ type Query {
     scout(filter: Scout_Filter): Scout
     trainings: [Training]
     training(filter: TrainingFilter): Training
+    results: [Result]
+    result(filter: ResultFilter): [Result]
 }
