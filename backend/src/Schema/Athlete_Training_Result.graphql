@@ -9,11 +9,14 @@ type Athlete_Training_Result {
 }
 
 input Athlete_Training_Result_Input {
+    collaborator_athlete_id: Int
+    training_id: Int
+    result_id: Int
     collaborator: CollaboratorTeamFilter
     training: TrainingFilter
     result: ResultFilter
 }
 
-input Athlete_Training_Result_Input {
+input Athlete_Training_Result_Filter {
     id: Int
 }

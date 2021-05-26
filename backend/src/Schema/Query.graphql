@@ -21,4 +21,5 @@ type Query {
     results: [Result]
     result(filter: ResultFilter): [Result]
     athletes_trainings_results: [Athlete_Training_Result]
+    athlete_training_result(filter: Athlete_Training_Result_Filter): Athlete_Training_Result
 }
