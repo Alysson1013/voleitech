@@ -25,5 +25,5 @@ type Mutation {
     ): Scout!
     newTraining(
         data: TrainingInput
-    ): Training
+    ): Training!
 }
