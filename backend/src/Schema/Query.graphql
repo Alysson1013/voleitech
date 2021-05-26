@@ -20,4 +20,5 @@ type Query {
     training(filter: TrainingFilter): Training
     results: [Result]
     result(filter: ResultFilter): [Result]
+    athletes_trainings_results: [Athlete_Training_Result]
 }

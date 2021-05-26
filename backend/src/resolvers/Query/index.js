@@ -8,6 +8,7 @@ const training_type = require('./training_type')
 const scout = require('./scout')
 const training = require('./training')
 const result = require('./result')
+const athletes_training_results = require('./athlete_training_result')
 
 module.exports = {
     ...address,
@@ -19,5 +20,6 @@ module.exports = {
     ...scout,
     ...training,
     ...result,
+    ...athletes_training_results,
     ...user
 }

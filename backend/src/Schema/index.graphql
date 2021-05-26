@@ -5,6 +5,7 @@
 #import Team from 'Team.graphql'
 #import Training_Type from 'Training_Type.graphql'
 #import Collaborator_Team from 'Collaborator_Team.graphql'
+#import Athlete_Training_Result from 'Athlete_Training_Result.graphql'
 #import Scout from 'Scout.graphql'
 #import Training from 'Training.graphql'
 #import Result from 'Result.graphql'
