@@ -33,6 +33,7 @@ type Result {
     n_initiative: Int
     n_initiative_lack: Int
     describe: String
+    training: Training
 }
 
 input ResultInput {
