@@ -25,6 +25,7 @@ type Collaborator {
     user: User
     adresses: [Address]
     teams: [Team]
+    results: [Result]
 }
 
 input CollaboratorFilter {
