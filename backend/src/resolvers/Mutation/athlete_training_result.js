@@ -16,11 +16,11 @@ const mutations = {
             const result = await getResult(_, {
                 filter: data.result
             })
-            data = {}
-            data.collaborator_athlete_id = collaborator.id
-            data.training_id = training.id
-            data.result_id = result[0].id
-            console.log(result)
+            data = {
+                collaborator_athlete_id: collaborator.id,
+                training_id: training.id,
+                result_id: result[0].id
+            }
 
             const [id] = await db('athletes_training_results')
                 .insert(data)
