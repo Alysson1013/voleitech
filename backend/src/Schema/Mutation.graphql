@@ -29,4 +29,7 @@ type Mutation {
     newResult(
         data: ResultInput
     ): Result!
+    newAthleteTrainingResult(
+        data: Athlete_Training_Result_Input 
+    ): Athlete_Training_Result!
 }
