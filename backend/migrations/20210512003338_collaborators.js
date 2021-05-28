@@ -2,12 +2,12 @@
 exports.up = function(knex) {
     return knex.schema.createTable('collaborators', table => {
         table.increments('id').primary()
-        table.string('phone_1', 12).notNull().unique()
-        table.string('phone_2', 12).unique()
-        table.string('phone_3', 12).unique()
-        table.string('email_1', 30).notNull().unique()
-        table.string('email_2', 30).unique()
-        table.string('email_3', 30).unique()
+        table.string('phone_1', 12).notNull()
+        table.string('phone_2', 12)
+        table.string('phone_3', 12)
+        table.string('email_1', 30).notNull()
+        table.string('email_2', 30)
+        table.string('email_3', 30)
         table.string('name', 150).notNull()
         table.datetime('dt_birth').notNull()
         table.enu('function', ['athlete', 'assistant', 'both'])

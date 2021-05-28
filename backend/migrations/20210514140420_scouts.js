@@ -2,7 +2,7 @@
 exports.up = function(knex) {
     return knex.schema.createTable('scouts', table => {
         table.increments('id').primary()
-        table.string('name', 30).notNull().unique()
+        table.string('name', 30).notNull()
         table.integer('v_floating_serve')
         table.integer('v_floating_serve_points')
         table.integer('v_floating_serve_mistake')
