@@ -10,13 +10,16 @@ module.exports = {
             .innerJoin('team_category', 'team_category.id', 'teams.category_id')
             .whereRaw(`team_category.user_id = ${ctx.user.id}`)
     },
-    async collaborator(_, { filter }) {
+    async collaborator(_, { filter }, ctx) {
         if (!filter) return null
 
         const { id } = filter
         if (id) {
             return db('collaborators')
-                .where({ id })
+                .innerJoin('collaborators_teams', 'collaborators_teams.collaborator_id', 'collaborators.id')
+                .innerJoin('teams', 'collaborators_teams.team_id', 'teams.id')
+                .innerJoin('team_category', 'team_category.id', 'teams.category_id')
+                .whereRaw(`collaborators.id = ${id} AND team_category.user_id = ${ctx.user.id}`)
                 .first()
         } else {
             return null
