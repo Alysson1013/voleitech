@@ -2,7 +2,6 @@
 exports.up = function(knex) {
     return knex.schema.createTable('collaborators', table => {
         table.increments('id').primary()
-        table.integer('user_id').unsigned()
         table.string('phone_1', 12).notNull().unique()
         table.string('phone_2', 12).unique()
         table.string('phone_3', 12).unique()
@@ -25,8 +24,6 @@ exports.up = function(knex) {
         table.float('jump_height')
         table.string('describe', 500)
         table.timestamp('created_at').defaultTo(knex.fn.now())
-
-        table.foreign('user_id').references('users.id')
     })
 };
 

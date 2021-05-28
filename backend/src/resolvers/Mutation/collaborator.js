@@ -4,8 +4,6 @@ const mutations = {
     async newCollaborator(_, { data }, ctx) {
         ctx && ctx.userValidate()
         try {
-            data.user_id = ctx.user.id
-
             const teams = data.teams
             delete data.teams
 
