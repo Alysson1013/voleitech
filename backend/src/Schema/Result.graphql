@@ -76,3 +76,9 @@ input ResultFilter {
     id: Int
     dt_result: Date
 }
+
+input ResultMY {
+    month: Int
+    year: Int
+}
+
