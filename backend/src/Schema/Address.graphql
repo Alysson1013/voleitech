@@ -9,6 +9,7 @@ type Address {
     number: Int
     complement: String
     describe: String
+    user_id: Int
 }
 
 input AddressFilter {

@@ -34,6 +34,7 @@ type Result {
     n_initiative_lack: Int
     describe: String
     training: Training
+    user_id: Int
 }
 
 input ResultInput {

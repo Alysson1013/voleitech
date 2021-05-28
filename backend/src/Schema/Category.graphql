@@ -13,5 +13,4 @@ input CategoryInput {
 input CategoryFilter {
     id: Int
     name_category: String
-    user_id: Int
 }

@@ -6,6 +6,7 @@ type Athlete_Training_Result {
     collaborator: Collaborator
     training: Training
     result: Result
+    user_id: Int
 }
 
 input Athlete_Training_Result_Input {

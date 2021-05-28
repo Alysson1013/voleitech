@@ -7,6 +7,7 @@ type Training {
     dt_training: Date
     hour_start: Time
     hour_finish: Time
+    user_id: Int
 }
 
 input TrainingFilter {

@@ -5,7 +5,8 @@ type Collaborator_Team {
     team_id: Int
     team: Team
     function: String
-    status: Boolean   
+    status: Boolean
+    user_id: Int
 }
 
 input CollaboratorTeamFilter {
