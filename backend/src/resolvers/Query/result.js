@@ -15,7 +15,7 @@ module.exports = {
     async result(_, { filter }, ctx) {
         if (!filter) return null
 
-        const { id, dt_result } = filter
+        const { id } = filter
 
         if (id) {
             return db
@@ -29,9 +29,8 @@ module.exports = {
                 .innerJoin('training')
                 .whereRaw(`results.id = ${id} AND team_category.user_id = ${ctx.user.id}`)
                 .limit(1)
-        } else if (dt_result) {
-            return db
-
+        } else {
+            return null
         }
     }
 }

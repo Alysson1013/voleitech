@@ -2,6 +2,7 @@ const db = require('../../../config/db')
 
 const mutations = {
     async newAddress(_, { data }) {
+        ctx && ctx.userValidate()
         try {
             const [id] = await db('adresses')
                 .insert(data)

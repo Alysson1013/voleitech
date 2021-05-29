@@ -2,7 +2,6 @@
 exports.up = function(knex) {
     return knex.schema.createTable('results', table => {
         table.increments('id').primary()
-        table.datetime('dt_result').notNull()
         table.integer('general_points').notNull()
         table.integer('n_floating_serve')
         table.integer('n_floating_serve_points')
