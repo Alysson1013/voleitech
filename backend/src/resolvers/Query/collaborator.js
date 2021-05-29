@@ -4,6 +4,8 @@ module.exports = {
     async collaborators(_, args, ctx) {
         return db
             .select(['collaborators.id', 'collaborators.phone_1', 'collaborators.phone_2', 'collaborators.phone_3', 'collaborators.email_1', 'collaborators.email_2', 'collaborators.email_3', 'collaborators.name', 'collaborators.dt_birth', 'collaborators.function AS function', 'collaborators.n_enrollment_atl', 'collaborators.n_enrollment_ast', 'collaborators.positions', 'collaborators.n_uniform', 'collaborators.height', 'collaborators.weight', 'collaborators.width', 'collaborators.gender', 'collaborators.bmi', 'collaborators.jump_distance', 'collaborators.jump_height', 'collaborators.describe', 'team_category.user_id'])
+            .distinct('collaborators.id')
+            .orderBy('collaborators.id', 'asc')
             .table('collaborators')
             .innerJoin('collaborators_teams', 'collaborators_teams.collaborator_id', 'collaborators.id')
             .innerJoin('teams', 'collaborators_teams.team_id', 'teams.id')
@@ -15,7 +17,11 @@ module.exports = {
 
         const { id } = filter
         if (id) {
-            return db('collaborators')
+            return db
+                .select(['collaborators.id', 'collaborators.phone_1', 'collaborators.phone_2', 'collaborators.phone_3', 'collaborators.email_1', 'collaborators.email_2', 'collaborators.email_3', 'collaborators.name', 'collaborators.dt_birth', 'collaborators.function AS function', 'collaborators.n_enrollment_atl', 'collaborators.n_enrollment_ast', 'collaborators.positions', 'collaborators.n_uniform', 'collaborators.height', 'collaborators.weight', 'collaborators.width', 'collaborators.gender', 'collaborators.bmi', 'collaborators.jump_distance', 'collaborators.jump_height', 'collaborators.describe', 'team_category.user_id'])
+                .distinct('collaborators.id')
+                .orderBy('collaborators.id', 'asc')
+                .table('collaborators')
                 .innerJoin('collaborators_teams', 'collaborators_teams.collaborator_id', 'collaborators.id')
                 .innerJoin('teams', 'collaborators_teams.team_id', 'teams.id')
                 .innerJoin('team_category', 'team_category.id', 'teams.category_id')

@@ -4,6 +4,8 @@ module.exports = {
     async collaborators_teams(_, args, ctx) {
         return db
             .select(['collaborators_teams.id', 'collaborators_teams.collaborator_id', 'collaborators_teams.team_id', 'collaborators_teams.function', 'collaborators_teams.status', 'user_id'])
+            .distinct('collaborators_teams.id')
+            .orderBy('collaborators_teams.id', 'asc')
             .table('collaborators_teams')
             .innerJoin('collaborators', 'collaborators.id', 'collaborators_teams.collaborator_id')
             .innerJoin('teams', 'collaborators_teams.team_id', 'teams.id')
@@ -17,6 +19,8 @@ module.exports = {
         if (id) {
             return db('collaborators_teams')
                 .select(['collaborators_teams.id', 'collaborators_teams.collaborator_id', 'collaborators_teams.team_id', 'collaborators_teams.function', 'collaborators_teams.status', 'user_id'])
+                .distinct('collaborators_teams.id')
+                .orderBy('collaborators_teams.id', 'asc')
                 .table('collaborators_teams')
                 .innerJoin('collaborators', 'collaborators.id', 'collaborators_teams.collaborator_id')
                 .innerJoin('teams', 'collaborators_teams.team_id', 'teams.id')
