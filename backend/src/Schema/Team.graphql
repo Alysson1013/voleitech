@@ -12,6 +12,7 @@ type Team {
     user_id: Int
     assignment: String
     status: Boolean
+    collaborators: [Collaborator]
 }
 
 input TeamFilter {
