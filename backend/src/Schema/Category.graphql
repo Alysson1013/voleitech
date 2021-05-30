@@ -12,5 +12,4 @@ input CategoryInput {
 
 input CategoryFilter {
     id: Int
-    name_category: String
 }

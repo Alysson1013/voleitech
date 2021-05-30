@@ -70,5 +70,4 @@ input ScoutInput {
 
 input Scout_Filter {
     id: Int
-    name: String
 }

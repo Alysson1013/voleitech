@@ -12,5 +12,4 @@ input Training_Type_Input {
 
 input Training_Type_Filter {
     id: Int
-    training_type_name: String
 }
