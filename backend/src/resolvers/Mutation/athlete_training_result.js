@@ -7,21 +7,6 @@ const mutations = {
     async newAthleteTrainingResult(_, { data }, ctx) {
         ctx && ctx.userValidate()
         try {
-            const collaborator = await getCollaborator(_, {
-                filter: data.collaborator
-            })
-            const training = await getTraining(_, {
-                filter: data.training
-            })
-            const result = await getResult(_, {
-                filter: data.result
-            })
-            data = {
-                collaborator_athlete_id: collaborator.id,
-                training_id: training.id,
-                result_id: result[0].id
-            }
-
             const [id] = await db('athletes_training_results')
                 .insert(data)
             return db('athletes_training_results')

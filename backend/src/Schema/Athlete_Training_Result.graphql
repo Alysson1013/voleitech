@@ -10,9 +10,9 @@ type Athlete_Training_Result {
 }
 
 input Athlete_Training_Result_Input {
-    collaborator: CollaboratorTeamFilter
-    training: TrainingFilter
-    result: ResultFilter
+    collaborator_athlete_id: Int
+    training_id: Int
+    result_id: Int
 }
 
 input Athlete_Training_Result_Filter {
