@@ -17,6 +17,10 @@ input AddressFilter {
     colab_id: Int
 }
 
+input AdressesFilter {
+    int: Int
+}
+
 input AddressInput {
     colab_id: Int 
     main: Boolean
