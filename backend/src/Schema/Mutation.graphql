@@ -43,10 +43,10 @@ type Mutation {
     newScout(
         data: ScoutInput
     ): Scout!
-    #editScout(
-    #    filter: Scout_Filter
-    #    data: ScoutInput
-    #): Scout!
+    editScout(
+        filter: Scout_Filter
+        data: ScoutInput
+    ): Scout!
     newTraining(
         data: TrainingInput
     ): Training!
