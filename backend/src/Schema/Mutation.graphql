@@ -26,10 +26,10 @@ type Mutation {
     newTeam(
         data: TeamInput
     ): Team!
-    # editTeam(
-    #    filter: TeamFilter
-    #    data: TeamInput
-    #): Team!
+    editTeam(
+        filter: TeamFilter
+        data: TeamInput
+    ): Team!
     newCollaboratorTeam(
         data: CollaboratorTeamInput
     ): Collaborator_Team!
