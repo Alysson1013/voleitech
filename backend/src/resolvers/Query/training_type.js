@@ -14,7 +14,7 @@ module.exports = {
     async training_type(_, { filter }, ctx) {
         if (!filter) return null
 
-        const { id, training_type_name } = filter
+        const { id } = filter
 
         if (id) {
             return db

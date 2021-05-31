@@ -37,11 +37,22 @@ const mutations = {
             throw new Error(error.sqlMessage)
         }
     },
-    async editCollaborator(_, { filter, data }, ctx){
+    async editCollaborator(_, { filter, data }, ctx) {
         ctx && ctx.userValidate()
         try {
             const collaboratorData = await getCollaborator(_, { filter }, ctx)
             const id = collaboratorData.id
+
+            const teams = data.teams
+            delete data.teams
+
+            if (teams) {
+                for (let team of teams) {
+                    team.collaborator_id = id
+                    await db('collaborators_teams')
+                        .insert(team)
+                }
+            }
 
             await db('collaborators')
                 .where({ id })

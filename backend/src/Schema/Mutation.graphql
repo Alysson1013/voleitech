@@ -33,17 +33,13 @@ type Mutation {
     newCollaboratorTeam(
         data: CollaboratorTeamInput
     ): Collaborator_Team!
-    #editCollaboratorTeam(
-    #    filter: CollaboratorTeamFilter
-    #    data: CollaboratorTeamInput
-    #): Collaborator_Team!
     newTrainingType(
         data: Training_Type_Input 
     ): Training_Type!
-    #editTrainingType(
-    #    filter: Training_Type_Filter
-    #    data: Training_Type_Input 
-    #): Training_Type!
+    editTrainingType(
+        filter: Training_Type_Filter
+        data: Training_Type_Input 
+    ): Training_Type!
     newScout(
         data: ScoutInput
     ): Scout!
