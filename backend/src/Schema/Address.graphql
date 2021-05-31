@@ -18,7 +18,7 @@ input AddressFilter {
 }
 
 input AdressesFilter {
-    int: Int
+    id: Int
 }
 
 input AddressInput {

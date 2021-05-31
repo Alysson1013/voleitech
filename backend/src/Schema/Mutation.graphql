@@ -5,10 +5,10 @@ type Mutation {
     newCollaborator(
         data: CollaboratorInput
     ): Collaborator!
-    editCollaborator(
-        filter: CollaboratorFilter
-        data: CollaboratorInput
-    ): Collaborator!
+    #editCollaborator(
+    #    filter: CollaboratorFilter
+    #    data: CollaboratorInput
+    #): Collaborator!
     newAddress(
         data: AddressInput
     ): Address!
@@ -19,52 +19,52 @@ type Mutation {
     newCategory(
         data: CategoryInput
     ): Category!
-    editCategory(
-        filter: CategoryFilter
-        data: CategoryInput
-    ): Category!
+    #editCategory(
+    #    filter: CategoryFilter
+    #    data: CategoryInput
+    #): Category!
     newTeam(
         data: TeamInput
     ): Team!
-    editTeam(
-        filter: TeamFilter
-        data: TeamInput
-    ): Team!
+    # editTeam(
+    #    filter: TeamFilter
+    #    data: TeamInput
+    #): Team!
     newCollaboratorTeam(
         data: CollaboratorTeamInput
     ): Collaborator_Team!
-    editCollaboratorTeam(
-        filter: CollaboratorTeamFilter
-        data: CollaboratorTeamInput
-    ): Collaborator_Team!
+    #editCollaboratorTeam(
+    #    filter: CollaboratorTeamFilter
+    #    data: CollaboratorTeamInput
+    #): Collaborator_Team!
     newTrainingType(
         data: Training_Type_Input 
     ): Training_Type!
-    editTrainingType(
-        filter: Training_Type_Filter
-        data: Training_Type_Input 
-    ): Training_Type!
+    #editTrainingType(
+    #    filter: Training_Type_Filter
+    #    data: Training_Type_Input 
+    #): Training_Type!
     newScout(
         data: ScoutInput
     ): Scout!
-    editScout(
-        filter: Scout_Filter
-        data: ScoutInput
-    ): Scout!
+    #editScout(
+    #    filter: Scout_Filter
+    #    data: ScoutInput
+    #): Scout!
     newTraining(
         data: TrainingInput
     ): Training!
-    editTraining(
-        filter: TrainingFilter
-        data: TrainingInput
-    ): Training!
+    #editTraining(
+    #    filter: TrainingFilter
+    #    data: TrainingInput
+    #): Training!
     newResult(
         data: ResultInput
     ): Result!
-    editResult(
-        filter: ResultFilterId
-        data: ResultInput
-    ): Result!
+    #editResult(
+    #    filter: ResultFilterId
+    #    data: ResultInput
+    #): Result!
     newAthleteTrainingResult(
         data: Athlete_Training_Result_Input 
     ): Athlete_Training_Result!

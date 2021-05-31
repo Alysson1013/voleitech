@@ -1,4 +1,5 @@
 const db = require('../../../config/db')
+const { address: getAddress, adresses } = require('../Query/address')
 
 const mutations = {
     async newAddress(_, { data }) {
@@ -11,6 +12,23 @@ const mutations = {
                 .first()
         } catch (error) {
             throw new Error(error.sqlMessage)
+        }
+    },
+    async editAddress(_, { filter, data }, ctx) {
+        ctx && ctx.userValidate()
+
+        try {
+            const addressData = await getAddress(_, { filter }, ctx)
+            const id = addressData[0].id
+            ctx && ctx.userValidatePropriety(addressData[0].user_id)
+
+            await db('adresses')
+                .where({ id })
+                .update(data)
+
+            return !addressData ? null : { ...addressData[0], ...data }
+        } catch (error) {
+            throw new Error(error)
         }
     }
 }
