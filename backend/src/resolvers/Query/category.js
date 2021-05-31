@@ -5,14 +5,14 @@ module.exports = {
         return db('team_category')
             .whereRaw(`team_category.user_id = ${ctx.user.id}`)
     },
-    async category(_, { filter }) {
+    async category(_, { filter }, ctx) {
         if (!filter) return null
 
         const { id } = filter
 
         if (id) {
             return db('team_category')
-                .whereRaw(`team_category = ${id} AND team_category.user_id = ${ctx.user.id}`)
+                .whereRaw(`team_category.id = ${id} AND team_category.user_id = ${ctx.user.id}`)
         } else {
             return null
         }

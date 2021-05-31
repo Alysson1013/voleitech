@@ -42,7 +42,6 @@ const mutations = {
         try {
             const collaboratorData = await getCollaborator(_, { filter }, ctx)
             const id = collaboratorData.id
-            ctx && ctx.userValidatePropriety(collaboratorData.user_id)
 
             await db('collaborators')
                 .where({ id })

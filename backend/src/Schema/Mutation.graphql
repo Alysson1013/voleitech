@@ -19,10 +19,10 @@ type Mutation {
     newCategory(
         data: CategoryInput
     ): Category!
-    #editCategory(
-    #    filter: CategoryFilter
-    #    data: CategoryInput
-    #): Category!
+    editCategory(
+        filter: CategoryFilter
+        data: CategoryInput
+    ): Category!
     newTeam(
         data: TeamInput
     ): Team!

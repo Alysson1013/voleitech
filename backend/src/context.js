@@ -31,12 +31,6 @@ module.exports = async ({ req }) => {
             const { id } = filter
             if (!id) throw err
             if (id && id !== user.id) throw err
-        },
-        userValidatePropriety(user_id){
-            if (!user) throw err
-            if (!user_id) throw err
-
-            if (user_id != user.id) throw err
         }
     }
 }

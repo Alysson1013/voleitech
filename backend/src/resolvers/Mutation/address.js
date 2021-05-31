@@ -19,7 +19,6 @@ const mutations = {
         try {
             const addressData = await getAddress(_, { filter }, ctx)
             const id = addressData[0].id
-            ctx && ctx.userValidatePropriety(addressData[0].user_id)
 
             await db('adresses')
                 .where({ id })
