@@ -1,5 +1,5 @@
 const db = require('../../../config/db')
-const { address: getAddress, adresses } = require('../Query/address')
+const { address: getAddress } = require('../Query/address')
 
 const mutations = {
     async newAddress(_, { data }) {
@@ -16,7 +16,6 @@ const mutations = {
     },
     async editAddress(_, { filter, data }, ctx) {
         ctx && ctx.userValidate()
-
         try {
             const addressData = await getAddress(_, { filter }, ctx)
             const id = addressData[0].id

@@ -5,10 +5,10 @@ type Mutation {
     newCollaborator(
         data: CollaboratorInput
     ): Collaborator!
-    #editCollaborator(
-    #    filter: CollaboratorFilter
-    #    data: CollaboratorInput
-    #): Collaborator!
+    editCollaborator(
+        filter: CollaboratorFilter
+        data: CollaboratorInput
+    ): Collaborator!
     newAddress(
         data: AddressInput
     ): Address!

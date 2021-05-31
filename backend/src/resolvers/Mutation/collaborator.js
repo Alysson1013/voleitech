@@ -1,4 +1,5 @@
 const db = require('../../../config/db')
+const { collaborator: getCollaborator } = require('../Query/collaborator')
 
 const mutations = {
     async newCollaborator(_, { data }, ctx) {
@@ -34,6 +35,22 @@ const mutations = {
                 .first()
         } catch (error) {
             throw new Error(error.sqlMessage)
+        }
+    },
+    async editCollaborator(_, { filter, data }, ctx){
+        ctx && ctx.userValidate()
+        try {
+            const collaboratorData = await getCollaborator(_, { filter }, ctx)
+            const id = collaboratorData.id
+            ctx && ctx.userValidatePropriety(collaboratorData.user_id)
+
+            await db('collaborators')
+                .where({ id })
+                .update(data)
+
+            return !collaboratorData ? null : { ...collaboratorData, ...data }
+        } catch (error) {
+            throw new Error(error)
         }
     }
 }
