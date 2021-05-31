@@ -50,10 +50,10 @@ type Mutation {
     newTraining(
         data: TrainingInput
     ): Training!
-    #editTraining(
-    #    filter: TrainingFilter
-    #    data: TrainingInput
-    #): Training!
+    editTraining(
+        filter: TrainingFilter
+        data: TrainingInput
+    ): Training!
     newResult(
         data: ResultInput
     ): Result!

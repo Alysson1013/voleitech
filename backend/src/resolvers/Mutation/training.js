@@ -2,28 +2,26 @@ const db = require('../../../config/db')
 const { training_type: getTrainingType } = require('../Query/training_type')
 const { team: getTeam } = require('../Query/team')
 const { scout: getScout } = require('../Query/scout')
+const { training: getTraining } = require('../Query/training')
 
 const mutations = {
     async newTraining(_, { data }, ctx) {
         ctx && ctx.userValidate()
         try {
-            const training_type = await getTrainingType(_, {
-                filter: data.training_type
-            })
-            const team = await getTeam(_, {
-                filter: data.team
-            })
-            const scout = await getScout(_, {
-                filter: data.scout
-            })
+            if (data.training_type) {
+                data.training_type_id = data.training_type.id
+                delete data.training_type
+            }
 
-            delete data.training_type
-            delete data.team
-            delete data.scout
+            if (data.team) {
+                data.team_id = data.team.id
+                delete data.team
+            }
 
-            data.training_type_id = training_type.id
-            data.team_id = team.id
-            data.scout_id = scout.id
+            if (data.scout) {
+                data.scout_id = data.scout.id
+                delete data.scout
+            }
 
             console.log(data)
 
@@ -34,6 +32,36 @@ const mutations = {
                 .first()
         } catch (error) {
             throw new Error(error.sqlMessage)
+        }
+    },
+    async editTraining(_, { filter, data }, ctx) {
+        ctx && ctx.userValidate()
+        try {
+            const trainingData = await getTraining(_, { filter }, ctx)
+            const id = trainingData.id
+
+            if (data.training_type) {
+                data.training_type_id = data.training_type.id
+                delete data.training_type
+            }
+
+            if (data.team) {
+                data.team_id = data.team.id
+                delete data.team
+            }
+
+            if (data.scout) {
+                data.scout_id = data.scout.id
+                delete data.scout
+            }
+
+            await db('training')
+                .where({ id })
+                .update(data)
+
+            return !trainingData ? null : { ...trainingData, ...data }
+        } catch (error) {
+            throw new Error(error)
         }
     }
 }

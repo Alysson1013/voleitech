@@ -21,9 +21,6 @@ const mutations = {
             const categoryData = await getCategory(_, { filter }, ctx)
             const id = categoryData[0].id
 
-            console.log(categoryData)
-            console.log(data)
-
             await db('team_category')
                 .where({ id })
                 .update(data)
