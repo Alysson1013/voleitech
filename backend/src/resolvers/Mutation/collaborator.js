@@ -41,6 +41,7 @@ const mutations = {
         ctx && ctx.userValidate()
         try {
             const collaboratorData = await getCollaborator(_, { filter }, ctx)
+            console.log(collaboratorData)
             const id = collaboratorData.id
 
             const teams = data.teams
@@ -59,6 +60,37 @@ const mutations = {
                 .update(data)
 
             return !collaboratorData ? null : { ...collaboratorData, ...data }
+        } catch (error) {
+            throw new Error(error)
+        }
+    },
+    async deleteCollaborator(_, { filter }, ctx) {
+        ctx && ctx.userValidate()
+        try {
+            const collaboratorData = await getCollaborator(_, { filter }, ctx)
+            console.log(collaboratorData)
+            ctx && ctx.userValidatePropriety(collaboratorData.user_id)
+
+            await db.raw(`
+                DELETE results, athletes_training_results FROM results
+                INNER JOIN athletes_training_results 
+                ON athletes_training_results.result_id = results.id
+                WHERE athletes_training_results.collaborator_athlete_id = ${collaboratorData.id}
+            `)
+
+            await db('adresses')
+                .whereRaw(`adresses.colab_id = ${collaboratorData.id}`)
+                .delete()
+
+            await db('collaborators_teams')
+                .whereRaw(`collaborators_teams.collaborator_id = ${collaboratorData.id}`)
+                .delete()
+
+            await db('collaborators')
+                .whereRaw(`collaborators.id = ${collaboratorData.id}`)
+                .delete()
+
+            return collaboratorData
         } catch (error) {
             throw new Error(error)
         }

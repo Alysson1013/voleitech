@@ -9,6 +9,9 @@ type Mutation {
         filter: CollaboratorFilter
         data: CollaboratorInput
     ): Collaborator!
+    deleteCollaborator(
+        filter: CollaboratorFilter
+    ): Collaborator!
     newAddress(
         data: AddressInput
     ): Address!
@@ -57,10 +60,6 @@ type Mutation {
     newResult(
         data: ResultInput
     ): Result!
-    #editResult(
-    #    filter: ResultFilterId
-    #    data: ResultInput
-    #): Result!
     newAthleteTrainingResult(
         data: Athlete_Training_Result_Input 
     ): Athlete_Training_Result!
