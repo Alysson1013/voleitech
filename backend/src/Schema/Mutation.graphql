@@ -19,6 +19,9 @@ type Mutation {
         filter: AdressesFilter
         data: AddressInput
     ): Address!
+    deleteAddress(
+        filter: AdressesFilter
+    ): Address!
     newCategory(
         data: CategoryInput
     ): Category!

@@ -28,6 +28,22 @@ const mutations = {
         } catch (error) {
             throw new Error(error)
         }
+    },
+    async deleteAddress(_, { filter }, ctx) {
+        ctx && ctx.userValidate()
+        try {
+            const addressData = await getAddress(_, { filter }, ctx)
+            console.log(addressData)
+            ctx.userValidatePropriety(addressData[0].user_id)
+
+            await db('adresses')
+                .whereRaw(`adresses.id = ${addressData[0].id}`)
+                .delete()
+
+            return addressData[0]
+        } catch (error) {
+            throw new Error(error)
+        }
     }
 }
 

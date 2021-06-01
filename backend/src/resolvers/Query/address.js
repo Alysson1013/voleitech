@@ -3,7 +3,7 @@ const db = require('../../../config/db')
 module.exports = {
     async adresses(_, args, ctx) {
         return db('adresses')
-            .select(['adresses.id', 'colab_id', 'main', 'cep', 'uf', 'district', 'road', 'number', 'complement', 'adresses.describe', 'adresses.created_at', 'user_id'])
+            .select(['adresses.id', 'adresses.colab_id', 'adresses.main', 'adresses.cep', 'adresses.uf', 'adresses.district', 'adresses.road', 'adresses.number', 'adresses.complement', 'adresses.describe', 'adresses.created_at', 'team_category.user_id'])
             .table('adresses')
             .distinct('adresses.id')
             .orderBy('adresses.id', 'asc')
