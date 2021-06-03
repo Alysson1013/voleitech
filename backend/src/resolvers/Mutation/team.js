@@ -41,7 +41,7 @@ const mutations = {
 
             return teamData
         } catch (error) {
-            throw new Error(`This team still has collaborators`)
+            throw new Error(`This team still has collaborators or in another field`)
         }
     }
 }
