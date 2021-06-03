@@ -29,6 +29,9 @@ type Mutation {
         filter: CategoryFilter
         data: CategoryInput
     ): Category!
+    deleteCategory(
+        filter: CategoryFilter
+    ): Category!
     newTeam(
         data: TeamInput
     ): Team!
