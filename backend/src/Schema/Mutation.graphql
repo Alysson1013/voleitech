@@ -39,6 +39,9 @@ type Mutation {
         filter: TeamFilter
         data: TeamInput
     ): Team!
+    deleteTeam(
+        filter: TeamFilter
+    ): Team!
     newCollaboratorTeam(
         data: CollaboratorTeamInput
     ): Collaborator_Team!
