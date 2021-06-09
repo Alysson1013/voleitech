@@ -2,10 +2,11 @@ import React from 'react';
 import { Navbar, Button, Nav } from 'react-bootstrap';
 import logo from '../Assets/logo.svg';
 import styles from './Header.module.css';
+import { Link } from 'react-router-dom'
 
 const Header = () => {
     return (
-        <Navbar bg="dark" variant="dark" className="dropdown animate__animated animate__bounce animate__bounceInLeft">
+        <Navbar bg="dark" variant="dark" className="dropdown animate__animated animate__bounce animate__fadeInLeft">
             <Navbar.Brand href="#home" style={{ paddingLeft: '2%' }}>
                 <img
                     alt=""
@@ -25,9 +26,19 @@ const Header = () => {
             <Navbar.Collapse className="justify-content-end" style={{ paddingRight: '2%' }}>
                 <Nav className="me-auto" style={{ paddingRight: '2%' }}>
                     <div style={{ paddingRight: '3%' }}>
-                        <Button variant="outline-light" className="dropdown animate__animated animate__bounce animate__bounceInLeft" >Login</Button>
+                        <Link to="/login">
+                            <Button variant="outline-light" className="dropdown animate__animated animate__bounce animate__bounceInLeft" >
+                                Login
+                            </Button>
+                        </Link>
                     </div>
-                    <Button variant="outline-light" className="dropdown animate__animated animate__bounce animate__bounceInLeft">Cadastro</Button>
+                    <div>
+                        <Link to="/login/criar">
+                            <Button variant="outline-light" className="dropdown animate__animated animate__bounce animate__bounceInLeft" >
+                                Cadastro
+                            </Button>
+                        </Link>
+                    </div>
                 </Nav>
             </Navbar.Collapse>
         </Navbar >

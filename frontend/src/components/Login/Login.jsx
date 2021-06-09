@@ -8,7 +8,7 @@ const Login = () => {
         <div>
             <Routes>
                 <Route path="/" element={<LoginForm />} />
-                <Route path="/cadastro" element={<LoginCadastro />} />
+                <Route path="/criar" element={<LoginCadastro />} />
             </Routes>
         </div>
     )
