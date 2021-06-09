@@ -1,11 +1,9 @@
 import React from 'react'
-import { Card } from 'react-bootstrap'
+import { Card, Button } from 'react-bootstrap'
 import styles from './LoginForm.module.css'
 import useForm from '../../Hooks/useForm'
 import Input from '../Forms/Input'
-import Button from '../Forms/Button'
 import { Link } from 'react-router-dom'
-import stylesBtn from '../Forms/Button.module.css';
 
 const LoginForm = () => {
     const email = useForm('email')
@@ -26,10 +24,10 @@ const LoginForm = () => {
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <Input label="E-mail" type="email" name="email" {...email} />
                         <Input label="Senha" type="password" name="password" {...password} />
-                        <Button>Entrar</Button>
+                        <Button variant="outline-dark">Entrar</Button>
                     </form>
                     <div className={styles.cadastro}>
-                        <p>Ainda não possui conta? Cadastre-se no site. <br /><Link to="login/criar">Cadastre-se</Link> </p>
+                        <p>Ainda não possui conta? Cadastre-se no site. <br /><Link to="login/criar" style={{textDecoration: 'none', color: 'black'}}>Cadastre-se</Link> </p>
                     </div>
                 </Card.Body>
             </Card>

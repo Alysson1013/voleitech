@@ -1,12 +1,10 @@
 .section {
-    width: 60%;
+    width: 50%;
     margin: auto;
     padding-top: 3%;
 }
 
-.form {
-    width: 90%;
-}
+
 
 .perdeu {
     display: inline-block;

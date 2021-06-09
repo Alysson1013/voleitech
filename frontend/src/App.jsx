@@ -5,27 +5,24 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import 'animate.css';
 import Login from './components/Login/Login';
-import AnimatedBg from "react-animated-bg";
+import BackgroundSlider from 'react-background-slider'
+import image2 from './Assets/imagem2.jpg'
+import image3 from './Assets/imagem3.jpg'
 
 function App() {
   return (
-    <AnimatedBg
-      className="Back"
-      colors={["AliceBlue", "Ivory", "white"]}
-      duration={5}
-      delay={1}
-      timingFunction="linear"
-    >
-      <div className="App">
-        <BrowserRouter>
-          <Header />
-          <Routes>
-            <Route path="/login" element={<Login />} />
-          </Routes>
-          <Footer />
-        </BrowserRouter>
-      </div>
-    </AnimatedBg>
+    <div className="App">
+      <BackgroundSlider
+        images={[image2, image3]}
+        duration={100} transition={2} />
+      <BrowserRouter>
+        <Header />
+        <Routes>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+    </div>
   );
 }
 
