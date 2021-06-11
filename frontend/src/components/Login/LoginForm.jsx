@@ -15,7 +15,7 @@ const LoginForm = () => {
     }
 
     return (
-        <section className={`dropdown animate__animated animate__bounce animate__fadeInRight ${styles.section} `}>
+        <section className={`dropdown animate__animated animate__bounce animate__fadeInDown ${styles.section} `}>
             <Card>
                 <Card.Header as='h1'>
                     Login / Cadastro
@@ -24,10 +24,10 @@ const LoginForm = () => {
                     <form onSubmit={handleSubmit} className={styles.form}>
                         <Input label="E-mail" type="email" name="email" {...email} />
                         <Input label="Senha" type="password" name="password" {...password} />
-                        <Button variant="outline-dark">Entrar</Button>
+                        <Button variant="outline-dark" className={`dropdown animate__animated animate__fadeInUp`}>Entrar</Button>
                     </form>
                     <div className={styles.cadastro}>
-                        <p>Ainda não possui conta? Cadastre-se no site. <br /><Link to="login/criar" style={{textDecoration: 'none', color: 'black'}}>Cadastre-se</Link> </p>
+                        <p>Ainda não possui conta? Cadastre-se no site. <br /><Link to="criar" style={{textDecoration: 'none', color: 'black'}}>Cadastre-se</Link> </p>
                     </div>
                 </Card.Body>
             </Card>

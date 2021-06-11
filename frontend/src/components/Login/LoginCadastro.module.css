@@ -1,0 +1,31 @@
+.section {
+    width: 50%;
+    margin: auto;
+    padding-top: 3%;
+}
+
+.date {
+    border: 1px solid #eee;
+    display: block;
+    width: 160%;
+    font-size: 1rem;
+    padding: 0.8rem;
+    border-radius: 0.4rem;
+    background: #eee;
+    transition: 0.2s;
+}
+
+.date:focus,
+.date:hover {
+    outline: none;
+    border-color: black;
+    background: white;
+    box-shadow: 0 0 0 3px rgb(73, 72, 65);
+}
+
+.label {
+    display: block;
+    font-size: 1rem;
+    line-height: 1;
+    padding-bottom: 0.5rem;
+}
