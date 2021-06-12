@@ -28,7 +28,7 @@ const mutations = {
         } catch (error) {
             throw new Error(error)
         }
-    }
+    },
 }
 
 module.exports = mutations

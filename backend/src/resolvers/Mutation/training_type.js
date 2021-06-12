@@ -1,5 +1,5 @@
 const db = require('../../../config/db')
-const { training_type: getTraining_type } = require('../Query/training_type')  
+const { training_type: getTraining_type } = require('../Query/training_type')
 
 const mutations = {
     async newTrainingType(_, { data }, ctx) {
@@ -27,6 +27,21 @@ const mutations = {
             return !training_typeData ? null : { ...training_typeData, ...data }
         } catch (error) {
             throw new Error(error)
+        }
+    },
+    async deleteTrainingType(_, { filter }, ctx) {
+        ctx && ctx.userValidate()
+        try {
+            const training_typeData = await getTraining_type(_, { filter }, ctx)
+            const id = training_typeData.id
+
+            await db('training_type')
+                .whereRaw(`training_type.id = ${id}`)
+                .delete()
+            
+            return training_typeData
+        } catch (error) {
+            throw new Error(`This training type is still in use.`)
         }
     }
 }

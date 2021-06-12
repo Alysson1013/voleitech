@@ -38,7 +38,7 @@ const mutations = {
 
             await db('team_category')
                 .delete()
-                .whereRaw(`teams.id = ${id}`)
+                .whereRaw(`team_category.id = ${id}`)
             
             return categoryData[0]
         } catch (error) {

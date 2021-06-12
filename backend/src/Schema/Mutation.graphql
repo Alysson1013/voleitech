@@ -52,6 +52,9 @@ type Mutation {
         filter: Training_Type_Filter
         data: Training_Type_Input 
     ): Training_Type!
+    deleteTrainingType(
+        filter: Training_Type_Filter
+    ): Training_Type!
     newScout(
         data: ScoutInput
     ): Scout!
