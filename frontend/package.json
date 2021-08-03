@@ -9,6 +9,7 @@
     "animate.css": "^4.1.1",
     "bootstrap": "4.6.0",
     "history": "^5.0.0",
+    "perfect-scrollbar-react": "^1.0.1",
     "react": "^17.0.2",
     "react-background-animation": "^1.0.1",
     "react-background-slider": "^2.0.0",

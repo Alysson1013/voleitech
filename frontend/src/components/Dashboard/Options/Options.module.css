@@ -5,4 +5,26 @@
 
 .caption{
   text-align: center;
+  text-decoration: none;
+  color: #333;
+}
+
+.column{
+  padding-top: 2%;
+  width: 25%;
+  margin-left: 4%;
+  border-right: 2px solid gray;
+  border-right-style: dashed;
+}
+
+.nav{
+  padding-bottom: 5%;
+}
+
+.first{
+  margin-top: 5%;
+}
+
+.last {
+  padding-bottom: 100%;
 }
