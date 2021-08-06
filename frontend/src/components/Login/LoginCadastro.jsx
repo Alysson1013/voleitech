@@ -6,9 +6,9 @@ import useForm from '../../Hooks/useForm'
 import DatePicker from "react-datepicker";
 import Button from '../Forms/Button'
 import "react-datepicker/dist/react-datepicker.css";
+import { signUpUser } from '../../Hooks/Api'
 import useFetch from '../../Hooks/useFetch';
 import { UserContext } from '../../UserContext';
-import { GraphQLClient, gql } from 'graphql-request'
 
 const LoginCadastro = () => {
     const name = useForm()
@@ -18,43 +18,22 @@ const LoginCadastro = () => {
     const subscription = useForm('number')
     const [startDate, setStartDate] = React.useState(new Date());
 
-    const graphQLClient = new GraphQLClient("http://localhost:4000")
-
-    const { userLogin } = React.useContext(UserContext);
-    const { loading, error, request } = useFetch();
-
     async function handleSubmit(event) {
         event.preventDefault();
 
         let year = startDate.getFullYear()
         let month = startDate.getMonth()
-        let day = startDate.getDate()
+        let day = startDate.getDate() 
 
-        let dt_birth = `${year}-${month}-${day}`
-
-        const mutation = gql`
-            mutation {
-                signupUser(data: {
-                    name: "${name.value}",
-                    email: "${email.value}",
-                    password: "${password.value}",
-                    describe: "Adicione uma descrição",
-                    dt_birth: "${dt_birth}",
-                    n_enrollment: "${subscription.value}"
-                }){
-                    name
-                    n_enrollment
-                }
-            }
-        `
-
-        try {
-            const data = await graphQLClient.request(mutation)
-            console.log(data)
-        } catch (error) {
-            console.log(error)
+        const body = {
+            name: name.value,
+            email: email.value,
+            password: password.value,
+            n_enrollment: subscription.value,
+            dt_birth: `${year}-${month}-${day}`
         }
 
+        signUpUser(body)
     }
 
     return (
