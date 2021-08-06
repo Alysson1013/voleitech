@@ -1,8 +1,9 @@
 import React from 'react'
-import { Card, Button } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import styles from './LoginForm.module.css'
 import useForm from '../../Hooks/useForm'
 import Input from '../Forms/Input'
+import Button from '../Forms/Button'
 import { Link } from 'react-router-dom'
 
 const LoginForm = () => {

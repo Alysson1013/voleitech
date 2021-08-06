@@ -26,10 +26,10 @@ const teste = [
 
 function DashboardMain() {
   return (
-    <Container className={`animate__animated animate__bounce animate__fadeInDown ${styles.dash}`}>
-      <Row>
-        <Options />
-        <Col className={`${styles.centerCol}`}>
+      <Container className={`animate__animated animate__bounce animate__fadeInDown ${styles.dash}`}>
+        <Row>
+          <Options />
+          <Col className={`${styles.centerCol}`}>
             {
               teste.map((value, index) => (
                 <h1 key={index}>
@@ -37,9 +37,9 @@ function DashboardMain() {
                 </h1>
               ))
             }
-        </Col>
-      </Row>
-    </Container>
+          </Col>
+        </Row>
+      </Container>
   )
 }
 

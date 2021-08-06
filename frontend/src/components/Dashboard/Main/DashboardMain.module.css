@@ -2,14 +2,14 @@
   background-color: #f5f5f5;
   width: 100%;
   margin: auto;
-  margin-top: 3%;
+  margin-top: 6%;
   border-radius: 4px;
+  box-shadow: 2px 2px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .centerCol {
   overflow-y: auto;
-  height: 450px;
-  
+  height: 500px;
 }
 
 ::-webkit-scrollbar-track

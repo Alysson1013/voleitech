@@ -1,8 +1,8 @@
 .wrapper {
     margin-bottom: 1rem;
-}
-
-.input {
+  }
+  
+  .input {
     border: 1px solid #eee;
     display: block;
     width: 100%;
@@ -11,24 +11,25 @@
     border-radius: 0.4rem;
     background: #eee;
     transition: 0.2s;
-}
-
-.input:focus,
-.input:hover {
+  }
+  
+  .input:focus,
+  .input:hover {
     outline: none;
-    border-color: black;
+    border-color: #fb1;
     background: white;
-    box-shadow: 0 0 0 3px rgb(73, 72, 65);
-}
-
-.label {
+    box-shadow: 0 0 0 3px #fea;
+  }
+  
+  .label {
     display: block;
     font-size: 1rem;
     line-height: 1;
     padding-bottom: 0.5rem;
-}
-
-.error {
+  }
+  
+  .error {
     color: #f31;
     font-size: 0.875rem;
-}
+    margin-top: 0.25rem;
+  }
