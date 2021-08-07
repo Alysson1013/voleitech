@@ -27,7 +27,6 @@ module.exports = async ({ req }) => {
         userValidateFilter(filter) {
             if (!user) throw err
             if (!filter) throw err
-
             const { id } = filter
             if (!id) throw err
             if (id && id !== user.id) throw err

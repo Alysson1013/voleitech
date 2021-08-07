@@ -23,8 +23,11 @@ module.exports = {
     async users(_, args) {
         return db('users')
     },
-    async user(_, { filter }) {
+    async user(_, { filter }, ctx) {
         if (!filter) return null
+
+        ctx && ctx.userValidateFilter(filter) 
+
         const { id, email } = filter
 
         if (id) {
