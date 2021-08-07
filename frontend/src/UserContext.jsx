@@ -1,5 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { signInUser, getUser } from './Hooks/Api.jsx'
+import jwt_decode from "jwt-decode";
 
 export const UserContext = React.createContext();
 
@@ -22,9 +24,29 @@ export const UserStorage = ({ children }) => {
     [navigate],
   );
 
+  async function userLogin(email, password) {
+    try {
+      setError(null);
+      setLoading(true);
+      const tokenRes = await signInUser({ email, password });
+      if (!tokenRes) throw new Error(`Error: ${tokenRes.statusText}`);
+      const token = tokenRes.login.token
+      window.localStorage.setItem('token', token);
+      const tokenDecode = jwt_decode(token)
+      let userData = await getUser(tokenDecode.id, token)
+      setData(userData)
+      navigate('/dashboard');
+    } catch (err) {
+      setError(err.message);
+      setLogin(false);
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <UserContext.Provider
-      value={{ userLogout, data, error, loading, login }}
+      value={{ userLogout, data, error, loading, login, userLogin }}
     >
       {children}
     </UserContext.Provider>
