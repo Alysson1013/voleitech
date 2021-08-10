@@ -79,8 +79,39 @@ const getUser = async ( user_id, token) => {
   }
 }
 
+const getAthletes = async (token ) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    {
+      athletes {
+        id
+        name
+        n_enrollment_atl
+        teams {
+          name
+          assignment
+        }
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch(error) {
+    console.log(error)
+    return;
+  }
+}
+
 export {
   signUpUser,
   signInUser,
-  getUser
+  getUser,
+  getAthletes
 }

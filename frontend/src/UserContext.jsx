@@ -24,6 +24,12 @@ export const UserStorage = ({ children }) => {
     [navigate],
   );
 
+  const getToken = () => {
+    const token = window.localStorage.getItem('token')
+    if (token) return token
+    else return;
+  }
+
   async function userLogin(email, password) {
     try {
       setError(null);
@@ -46,7 +52,7 @@ export const UserStorage = ({ children }) => {
 
   return (
     <UserContext.Provider
-      value={{ userLogout, data, error, loading, login, userLogin }}
+      value={{ userLogout, data, error, loading, login, userLogin, getToken }}
     >
       {children}
     </UserContext.Provider>
