@@ -10,6 +10,7 @@
 .centerCol {
   overflow-y: auto;
   height: 500px;
+  width: 100;
 }
 
 ::-webkit-scrollbar-track

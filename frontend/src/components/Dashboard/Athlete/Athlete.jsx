@@ -8,18 +8,18 @@ import { getAthletes } from '../../../Hooks/Api';
 function Athlete() {
   const { getToken } = React.useContext(UserContext);
   const token = getToken()
-  const [athletes, setAthletes] = React.useState(null)
-
-  async function fetchAthletes(){
-    const response = await getAthletes(token)
-    setAthletes(response.athletes)
-    console.log(response.athletes)
-  } 
+  const [athletes, setAthletes] = React.useState([])
 
   React.useEffect(() => {
+    async function fetchAthletes(){
+      const response = await getAthletes(token)
+      setAthletes(response.athletes)
+    } 
+
     fetchAthletes()
   }, [token])
 
+  console.log(athletes)
 
   return (
       <Container className={`${styles.dash}`}>
@@ -27,7 +27,13 @@ function Athlete() {
           <Options />
           <Col className={`${styles.centerCol}`}>
             {
-
+                <Row>
+                  {athletes.map((value, index) => (
+                    <Col>
+                      <p key={index}>{value.name}</p>
+                    </Col>
+                  ))}
+                </Row>
             }
           </Col>
         </Row>
