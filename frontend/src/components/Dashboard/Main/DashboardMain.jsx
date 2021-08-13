@@ -26,7 +26,7 @@ const teste = [
 
 function DashboardMain() {
   return (
-      <Container className={`animate__animated animate__bounce animate__fadeInDown ${styles.dash}`}>
+      <Container className={`animate__animated animate__bounce animate__fadeInDown ${styles.dash}`} styles={{width: '3%'}}>
         <Row>
           <Options />
           <Col className={`${styles.centerCol}`}>
