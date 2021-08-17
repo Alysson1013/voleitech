@@ -1,43 +1,25 @@
-import React from 'react';
+import React from 'react'
+import { useParams } from 'react-router-dom'
 import styles from './Athlete.module.css';
+import { Container, Row, Col} from 'react-bootstrap';
 import Options from '../Options/Options';
-import { Container, Row, Col } from 'react-bootstrap';
-import { UserContext } from '../../../UserContext';
-import { getAthletes } from '../../../Hooks/Api';
+
 
 function Athlete() {
-  const { getToken } = React.useContext(UserContext);
-  const token = getToken()
-  const [athletes, setAthletes] = React.useState([])
 
-  React.useEffect(() => {
-    async function fetchAthletes(){
-      const response = await getAthletes(token)
-      setAthletes(response.athletes)
-    } 
+  const { id } = useParams()
+  console.log(id)
 
-    fetchAthletes()
-  }, [token])
-
-  console.log(athletes)
 
   return (
-      <Container className={`${styles.dash}`}>
-        <Row>
-          <Options />
-          <Col className={`${styles.centerCol}`}>
-            {
-                <Row>
-                  {athletes.map((value, index) => (
-                    <Col>
-                      <p key={index}>{value.name}</p>
-                    </Col>
-                  ))}
-                </Row>
-            }
-          </Col>
-        </Row>
-      </Container>
+    <Container className={`${styles.dash}`}>
+      <Row>
+        <Options />
+        <Col className={`${styles.centerCol}`}>
+          
+        </Col>
+      </Row>
+    </Container>
   )
 }
 
