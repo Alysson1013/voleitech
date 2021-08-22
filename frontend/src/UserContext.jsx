@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { signInUser, getUser } from './Hooks/Api.jsx'
 import jwt_decode from "jwt-decode";
 
@@ -10,7 +10,7 @@ export const UserStorage = ({ children }) => {
   const [login, setLogin] = React.useState(null);
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const navigate = useNavigate();
+  const history = useHistory();
 
   const userLogout = React.useCallback(
     async function () {
@@ -19,9 +19,9 @@ export const UserStorage = ({ children }) => {
       setLoading(false);
       setLogin(false);
       window.localStorage.removeItem('token');
-      navigate('/login');
+      history.push('/login');
     },
-    [navigate],
+    [history],
   );
 
   const getToken = () => {
@@ -41,7 +41,7 @@ export const UserStorage = ({ children }) => {
       const tokenDecode = jwt_decode(token)
       let userData = await getUser(tokenDecode.id, token)
       setData(userData)
-      navigate('/dashboard');
+      history.push('/dashboard');
     } catch (err) {
       setError(err.message);
       setLogin(false);
