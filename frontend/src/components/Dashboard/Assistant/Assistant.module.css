@@ -1,0 +1,68 @@
+.card {
+  margin-top: 2%;
+  margin-right: 2%;
+}
+
+.dash {
+  background-color: rgba(245, 245, 245, 0.3);
+  width: 100%;
+  margin: auto;
+  margin-top: 6%;
+  border-radius: 4px;
+  box-shadow: 2px 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.centerCol {
+  position: relative;
+  overflow-y: auto;
+  height: 500px;
+}
+
+.containerAbout {
+  height: calc(100% - 80px);
+  padding: 10px;
+}
+
+.containerAbout div:first-child {
+  display: flex;
+  flex-direction: column;
+}
+
+.containerAbout div:first-child span {
+  margin: 5px 0;
+}
+
+.graphicContainer div {
+  width: 100%;
+  height: 100%;
+}
+
+.graphicContainer div .chartPie {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.contentButton {
+  justify-content: center;
+  width: 100%;
+}
+
+.contentButton button {
+  margin: 5px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #f5f5f5;
+}
+
+.centerCol::-webkit-scrollbar {
+  width: 12px;
+  background-color: #f5f5f5;
+}
+
+.centerCol::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #545454;
+}

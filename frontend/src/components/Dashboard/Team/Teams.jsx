@@ -1,12 +1,12 @@
-import React from 'react';
-import { Link } from 'react-router-dom'
-import {  Row, Col, Card } from 'react-bootstrap';
+import React from 'react'
+import { Card, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { getAthletes } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
-import {  getAthletes } from '../../../Hooks/Api';
 
-import styles from './Athlete.module.css';
+import styles from './Team.module.css'
 
-function Athlete() {
+const Teams = () => {
   const { getToken } = React.useContext(UserContext);
   const token = getToken()
   const [athletes, setAthletes] = React.useState([])
@@ -20,7 +20,6 @@ function Athlete() {
     loadAtheletes()
   }, [token])
 
-
   return (
     <>
       <Col className={`${styles.centerCol}`}>
@@ -32,7 +31,9 @@ function Athlete() {
                 <Card.Body>
                   <Card.Title>{value.teams[0].name}</Card.Title>
                   <Card.Text>
-                    <Link to={`/athlete/${value.id}`}>Ver mais sobre o Atleta</Link>
+                    {value.n_enrollment_atl}
+                    <br />
+                    <Link to={`/team/${value.id}`}>Ver mais sobre a Equipe</Link>
                   </Card.Text>
                 </Card.Body>
               </Card>
@@ -44,4 +45,4 @@ function Athlete() {
   )
 }
 
-export default Athlete
+export default Teams
