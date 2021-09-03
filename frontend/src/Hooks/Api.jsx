@@ -124,25 +124,32 @@ const getAthleteById = async (token, id) => {
       }){
         id
         phone_1
-        phone_2
-        phone_3
         email_1
-        email_2
-        email_3
         name
         dt_birth
-        gender
         function
-        bmi
+        n_enrollment_atl
         positions
         n_uniform
         height
         weight
-        describe
-        teams {
+        width
+        gender
+        bmi
+        jump_distance
+        jump_height
+        adresses {
           id
-          name
+          main
+          cep
+          uf
+          district
+          road
+          number
+          complement
+          describe
         }
+        describe
       }
     }
   `
