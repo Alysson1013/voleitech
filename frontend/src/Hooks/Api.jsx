@@ -149,6 +149,14 @@ const getAthleteById = async (token, id) => {
           complement
           describe
         }
+        results {
+          n_floating_serve_points
+          n_trip_serve_points
+          n_attack_points
+          n_dripping_point
+          n_box_point
+          n_block_points
+        }
         describe
       }
     }

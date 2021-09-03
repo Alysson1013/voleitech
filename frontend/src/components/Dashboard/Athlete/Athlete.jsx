@@ -14,7 +14,7 @@ import { getAthleteById, updateUser } from '../../../Hooks/Api';
 import Chart from '../../Chart';
 
 import styles from './Athlete.module.css';
-import { Pie } from 'react-chartjs-2';
+import { Radar } from 'react-chartjs-2';
 
 function Athlete() {
   const { getToken } = useContext(UserContext);
@@ -28,16 +28,45 @@ function Athlete() {
     phone_1: '',
     function: '',
     dt_birth: '',
+    n_enrollment_atl: '',
+    positions: '',
+    n_uniform: 0,
+    height: 0,
+    weight: 0,
+    width: 0,
+    gender: '',
+    bmi: 0,
+    jump_distance: 0,
+    jump_height: 0,
+    adresses: [],
+    results: [],
   })
-  const [stateChartPie, setStateChartPie] = useState({
-    labels: ['January', 'February', 'March',
-             'April', 'May'],
+  const [stateChartRadar, setStateChartRadar] = useState({
+    labels: ["Saque Flutuante", "Saque Viagem", "Ataque", "Saque Pingado", "Saque Caixa", "Defesa"],
     datasets: []
   })
 
 
   const history = useHistory()
   const {id} = useParams()
+
+  const loadData = () => {
+    const n_floating_serve_points = dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_points, 0)/dataBody.results.length
+    const n_trip_serve_points = dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_points, 0)/dataBody.results.length
+    const n_attack_points = dataBody.results.reduce((prev, current) => prev + current.n_attack_points, 0)/dataBody.results.length
+    const n_dripping_point = dataBody.results.reduce((prev, current) => prev + current.n_dripping_point, 0)/dataBody.results.length
+    const n_box_point = dataBody.results.reduce((prev, current) => prev + current.n_box_point, 0)/dataBody.results.length
+    const n_block_points = dataBody.results.reduce((prev, current) => prev + current.n_block_points, 0)/dataBody.results.length
+  
+    return {
+      n_floating_serve_points,
+      n_trip_serve_points,
+      n_attack_points,
+      n_dripping_point,
+      n_box_point,
+      n_block_points
+    }
+  }
 
   const loadAthlete = async () => {
     const response = await getAthleteById(token, id)
@@ -47,6 +76,7 @@ function Athlete() {
       email_1: response.collaborator.email_1,
       phone_1: response.collaborator.phone_1,
       function: response.collaborator.function,
+      dt_birth: Number(moment(new Date()).year()) - Number(moment(response.collaborator.dt_birth).year()),
       n_enrollment_atl: response.collaborator.n_enrollment_atl,
       positions: response.collaborator.positions,
       n_uniform: response.collaborator.n_uniform,
@@ -58,34 +88,28 @@ function Athlete() {
       jump_distance: response.collaborator.jump_distance,
       jump_height: response.collaborator.jump_height,
       adresses: response.collaborator.adresses,
-      dt_birth: Number(moment(new Date()).year()) - Number(moment(response.collaborator.dt_birth).year())
+      results: response.collaborator.results,
     })
   }
 
-  const loadChartData = async () => {
-    setStateChartPie({
-      ...stateChartPie,
-      datasets: [
-        {
-          label: 'Rainfall',
-          backgroundColor: [
-            '#B21F00',
-            '#C9DE00',
-            '#2FDE00',
-            '#00A6B4',
-            '#6800B4'
-          ],
-          hoverBackgroundColor: [
-          '#501800',
-          '#4B5000',
-          '#175000',
-          '#003350',
-          '#35014F'
-          ],
-          data: [65, 59, 80, 81, 56]
-        }
-      ]
-    })
+  const loadChartData = async (data) => {
+    if (data){
+      setStateChartRadar({
+        ...stateChartRadar,
+        datasets: [
+          {
+            label: "Resultado",
+            backgroundColor: [
+              'rgba(255, 187, 17, 0.7)'
+            ],
+            hoverBackgroundColor: [
+              '#fb1'
+            ],
+            data: [data.n_floating_serve_points, data.n_trip_serve_points, data.n_attack_points, data.n_dripping_point, data.n_box_point, data.n_block_points]
+          }
+        ]
+      })
+    }
   }
 
   useEffect(() => {
@@ -94,6 +118,12 @@ function Athlete() {
       loadChartData()
     }
   }, [id])
+
+  useEffect(() => {
+    const data = loadData()
+    loadChartData(data)
+  }, [dataBody])
+
 
   const handleModalOpen = (id) => {
     setIsActive(true)
@@ -161,7 +191,7 @@ function Athlete() {
             </Col>
             <Col className={`${styles.graphicContainer}`}>
               <div>
-                <Chart TypeChart={Pie} state={stateChartPie} className={`${styles.chartPie}`} />
+                <Chart TypeChart={Radar} state={stateChartRadar} className={`${styles.chartPie}`} />
               </div>
             </Col>
           </Row>
