@@ -7,6 +7,7 @@ import DatePicker from "react-datepicker";
 import Button from '../Forms/Button'
 import "react-datepicker/dist/react-datepicker.css";
 import { signUpUser } from '../../Hooks/Api'
+import { useHistory } from "react-router-dom"
 
 const LoginCadastro = () => {
   const name = useForm()
@@ -15,6 +16,7 @@ const LoginCadastro = () => {
   const password2 = useForm()
   const subscription = useForm('number')
   const [startDate, setStartDate] = React.useState(new Date());
+  const history = useHistory()
 
   async function handleSubmit(event) {
     event.preventDefault();
@@ -32,6 +34,8 @@ const LoginCadastro = () => {
     }
 
     signUpUser(body)
+      .then(() => history.push("/login"))
+      .catch()
   }
 
   return (

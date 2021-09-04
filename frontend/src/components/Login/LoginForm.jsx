@@ -5,18 +5,22 @@ import useForm from '../../Hooks/useForm'
 import Input from '../Forms/Input'
 import Button from '../Forms/Button'
 import { Link } from 'react-router-dom'
-import { UserContext } from '../../UserContext';
+import { UserContext } from '../../UserContext'
+import { useHistory } from "react-router-dom"
 
 const LoginForm = () => {
     const email = useForm('email')
     const password = useForm()
     const { userLogin, error, loading } = React.useContext(UserContext);
+    const history = useHistory()
 
     async function handleSubmit(event) {
         event.preventDefault()
 
         if (email.validate() && password.validate()){
             userLogin(email.value, password.value)
+
+            if(!error) history.push("/login")
         }
     }
 

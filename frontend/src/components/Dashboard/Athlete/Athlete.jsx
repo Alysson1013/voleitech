@@ -42,7 +42,7 @@ function Athlete() {
     results: [],
   })
   const [stateChartRadar, setStateChartRadar] = useState({
-    labels: ["Saque Flutuante", "Saque Viagem", "Ataque", "Saque Pingado", "Saque Caixa", "Defesa"],
+    labels: ["Saque Flutuante", "Saque Viagem", "Ataque", "Pingado", "Caixinha", "Defesa"],
     datasets: []
   })
 
@@ -51,20 +51,27 @@ function Athlete() {
   const {id} = useParams()
 
   const loadData = () => {
-    const n_floating_serve_points = dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_points, 0)/dataBody.results.length
-    const n_trip_serve_points = dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_points, 0)/dataBody.results.length
-    const n_attack_points = dataBody.results.reduce((prev, current) => prev + current.n_attack_points, 0)/dataBody.results.length
-    const n_dripping_point = dataBody.results.reduce((prev, current) => prev + current.n_dripping_point, 0)/dataBody.results.length
-    const n_box_point = dataBody.results.reduce((prev, current) => prev + current.n_box_point, 0)/dataBody.results.length
-    const n_block_points = dataBody.results.reduce((prev, current) => prev + current.n_block_points, 0)/dataBody.results.length
+    const dataResult = {
+      n_floating_serve_points: dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_points, 0)/dataBody.results.length,
+      n_trip_serve_points: dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_points, 0)/dataBody.results.length,
+      n_attack_points: dataBody.results.reduce((prev, current) => prev + current.n_attack_points, 0)/dataBody.results.length,
+      n_dripping_point: dataBody.results.reduce((prev, current) => prev + current.n_dripping_point, 0)/dataBody.results.length,
+      n_box_point: dataBody.results.reduce((prev, current) => prev + current.n_box_point, 0)/dataBody.results.length,
+      n_block_points: dataBody.results.reduce((prev, current) => prev + current.n_block_points, 0)/dataBody.results.length
+    } 
+
+    const dataError = {
+      n_floating_serve_mistake: dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_mistake, 0)/dataBody.results.length,
+      n_trip_serve_mistake: dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_mistake, 0)/dataBody.results.length,
+      n_attack_mistake: dataBody.results.reduce((prev, current) => prev + current.n_attack_mistakedataBody, 0)/dataBody.results.length,
+      n_block_mistake: dataBody.results.reduce((prev, current) => prev + current.n_block_mistake, 0)/dataBody.results.length,
+      n_defense_mistake: dataBody.results.reduce((prev, current) => prev + current.n_defense_mistake, 0)/dataBody.results.length,
+      n_lifting_mistake: dataBody.results.reduce((prev, current) => prev + current.n_defense_mistake, 0)/dataBody.results.length,
+    }
   
     return {
-      n_floating_serve_points,
-      n_trip_serve_points,
-      n_attack_points,
-      n_dripping_point,
-      n_box_point,
-      n_block_points
+      dataResult,
+      dataError
     }
   }
 
@@ -92,24 +99,34 @@ function Athlete() {
     })
   }
 
-  const loadChartData = async (data) => {
-    if (data){
+  const loadChartData = async (dataResult, dataError) => {
+    if (dataResult || dataError){
       setStateChartRadar({
         ...stateChartRadar,
         datasets: [
           {
-            label: "Resultado",
+            label: "Resultados",
             backgroundColor: [
-              'rgba(255, 187, 17, 0.7)'
+              'rgba(255, 187, 17, 0.3)'
             ],
             hoverBackgroundColor: [
               '#fb1'
             ],
-            data: [data.n_floating_serve_points, data.n_trip_serve_points, data.n_attack_points, data.n_dripping_point, data.n_box_point, data.n_block_points]
+            data: [dataResult.n_floating_serve_points, dataResult.n_trip_serve_points, dataResult.n_attack_points, dataResult.n_dripping_point, dataResult.n_box_point, dataResult.n_block_points]
+          },
+          {
+            label: "Erros",
+            backgroundColor: [
+              'rgba(204, 0, 0, 0.3)'
+            ],
+            hoverBackgroundColor: [
+              '#CC0000'
+            ],
+            data: [dataError.n_floating_serve_mistake, dataError.n_trip_serve_mistake, dataError.n_attack_mistake, dataError.n_block_mistake, dataError.n_defense_mistake, dataError.n_lifting_mistake]
           }
         ]
       })
-    }
+    } 
   }
 
   useEffect(() => {
@@ -120,8 +137,8 @@ function Athlete() {
   }, [id])
 
   useEffect(() => {
-    const data = loadData()
-    loadChartData(data)
+    const { dataResult, dataError } = loadData()
+    loadChartData(dataResult, dataError )
   }, [dataBody])
 
 
@@ -215,18 +232,11 @@ function Athlete() {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col>
-                      <Input label="Senha" type="password" name="password" />
-                    </Col>
-                    <Col>
-                      <Input label="Confirmar Senha" type="password" name="password" />
-                    </Col>
+                    <Input label="Data de Nascimento" name="dt_birth" />
                   </Form.Row>
                   <Form.Row>
-                    <Col>
-                      <Input label="Número de Inscrição" type="text" name="subscription" />
-                    </Col>
-                  </Form.Row>
+                
+                  </Form.Row>        
                   <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Editar</Button>
                 </Card.Body>
               </Card>

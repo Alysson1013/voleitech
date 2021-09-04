@@ -156,6 +156,13 @@ const getAthleteById = async (token, id) => {
           n_dripping_point
           n_box_point
           n_block_points
+          n_floating_serve_mistake
+          n_trip_serve_mistake
+          n_attack_mistake
+          n_block_mistake
+          n_pass_mistake
+          n_defense_mistake
+          n_lifting_mistake
         }
         describe
       }
