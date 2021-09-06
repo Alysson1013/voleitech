@@ -147,6 +147,10 @@ function Athlete() {
     setIdAth(id)
   }
 
+  const handleAddAddress = () => {
+    
+  }
+
   const hadleDeleteButton = async (id, token) => {
     const isDelete = window.confirm("Você tem certeza que deseja deletar esse atleta?")
     console.log(id + " - " + token)
@@ -202,7 +206,7 @@ function Athlete() {
                 <span><b className={styles.label}>E-mail:</b> {dataBody.email_1} </span>
               </Row>
               <Row>
-                <span><b className={styles.label}>Função:</b> {dataBody.function === "athlete" ? "Atleta" : dataBody.function === "both" ? "Ambos" : "Assistente" } </span>
+                <span><b className={styles.label}>Função:</b> {dataBody.function === "athlete" ? "Atleta" : dataBody.function === "both" ? "Ambos" : "Assistente"} </span>
                 <span><b className={styles.label}>Inscrição:</b> {dataBody.n_enrollment_atl} </span>
               </Row>
               <Row>
@@ -220,6 +224,12 @@ function Athlete() {
               <Row>
                 <span><b className={styles.label}>Salto Distância:</b> {dataBody.jump_distance} </span>
                 <span><b className={styles.label}>Salto Altura:</b> {dataBody.jump_height} </span>
+                
+              </Row>
+              <Row>
+                <span className={styles.label} onClick={handleAddAddress}> 
+                  <b>Adicionar endereço</b>
+                </span>
               </Row>
               <Row>
                 {
@@ -265,14 +275,13 @@ function Athlete() {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Col>
-                      <Input label="Função" type="text" name="function" onChange={e => setDataBody({ ...dataBody, function: e.target.value })} list="functionList" />
-                      <datalist id="functionList">
-                        <option value="athlete">Atleta</option>
-                        <option value="assistant">Assistente</option>
-                        <option value="both">Ambos</option>
-                      </datalist>
-                    </Col>
+                  <Col>
+                    <label htmlFor="function">Função</label>
+                    <select name="function" id="function" className={styles.select} onChange={e => setDataBody({ ...dataBody, function: e.target.value })} value={dataBody.function}>
+                      <option value="athlete"  selected >Atleta</option>
+                      <option value="both">Atleta e Assistente</option>
+                    </select>
+                </Col>
                     <Col>
                       <Input label="Posições" type="text" name="positions" onChange={e => setDataBody({ ...dataBody, positions: e.target.value })} value={dataBody.positions} />
                     </Col>
@@ -295,11 +304,11 @@ function Athlete() {
                   </Form.Row>
                   <Form.Row>
                     <Col>
-                      <Input label="Sexo" type="text" name="gender" onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender} list="genderList" />
-                      <datalist id="genderList">
-                        <option value="male">Masculino</option>
+                      <label htmlFor="gender">Time Inicial</label>
+                      <select name="gender" id="gender" className={styles.select} onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender}>
+                        <option value="male" selected>Masculino</option>
                         <option value="female">Feminino</option>
-                      </datalist>
+                      </select>
                     </Col>
                     <Col>
                       <Input label="BMI" type="number" name="bmi" onChange={e => setDataBody({ ...dataBody, bmi: e.target.value })} value={dataBody.bmi} />
