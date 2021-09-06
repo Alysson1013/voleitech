@@ -20,7 +20,7 @@ const LoginForm = () => {
         if (email.validate() && password.validate()){
             userLogin(email.value, password.value)
 
-            if(!error) history.push("/login")
+            if(!error) history.push("/dashboard")
         }
     }
 

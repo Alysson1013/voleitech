@@ -71,12 +71,9 @@ const mutations = {
             console.log(collaboratorData)
             ctx && ctx.userValidatePropriety(collaboratorData.user_id)
 
-            await db.raw(`
-                DELETE results, athletes_training_results FROM results
-                INNER JOIN athletes_training_results 
-                ON athletes_training_results.result_id = results.id
-                WHERE athletes_training_results.collaborator_athlete_id = ${collaboratorData.id}
-            `)
+            await db('athletes_training_results')
+                .whereRaw(`athletes_training_results.collaborator_athlete_id = ${collaboratorData.id}`)
+                .delete()
 
             await db('adresses')
                 .whereRaw(`adresses.colab_id = ${collaboratorData.id}`)
@@ -89,6 +86,7 @@ const mutations = {
             await db('collaborators')
                 .whereRaw(`collaborators.id = ${collaboratorData.id}`)
                 .delete()
+
 
             return collaboratorData
         } catch (error) {

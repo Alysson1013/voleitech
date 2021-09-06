@@ -9,7 +9,7 @@ import Button from '../../Forms/Button'
 import Options from '../Options/Options';
 
 import { UserContext } from '../../../UserContext';
-import { getAthleteById, updateUser } from '../../../Hooks/Api';
+import { getAthleteById, updateUser, deleteCollaborator } from '../../../Hooks/Api';
 
 import Chart from '../../Chart';
 
@@ -147,6 +147,16 @@ function Athlete() {
     setIdAth(id)
   }
 
+  const hadleDeleteButton = async (id, token) => {
+    const isDelete = window.confirm("Você tem certeza que deseja deletar esse atleta?")
+    console.log(id + " - " + token)
+    if (isDelete === true){ 
+      console.log(id + " - " + token)
+      await deleteCollaborator(id, token)
+      history.push('/dashboard/athletes')
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -215,6 +225,7 @@ function Athlete() {
           <Row className={`${styles.contentButton}`} >
             <Button type="button" onClick={() => history.push('/dashboard/athletes')} >Voltar</Button>
             <Button type="button" onClick={() => handleModalOpen(id)} >Editar</Button>
+            <Button type="button" onClick={() => hadleDeleteButton(id, token)} >Deletar</Button>
           </Row>
           <Modal isActive={isActive} setIsActive={setIsActive} >
             <form onSubmit={handleSubmit}>

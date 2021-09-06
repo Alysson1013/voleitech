@@ -2,6 +2,39 @@ import { GraphQLClient, gql } from 'graphql-request'
 
 const endpoint = "http://localhost:4000/"
 
+const deleteCollaborator = async (id, token) => {
+
+  console.log(`${id} - ${token}`)
+
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+  mutation{
+      deleteCollaborator(filter: {
+  	    id: ${id}
+      }){
+		    id
+        phone_1
+        email_1
+        name
+      }
+  }
+  `  
+    
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 const signUpUser = async ({ name, email, password, dt_birth, n_enrollment }) => {
   const graphQLClient = new GraphQLClient(endpoint)
 
@@ -179,10 +212,8 @@ const getAthleteById = async (token, id) => {
 }
 
 
+
 const updateUser = async (data, id, token) => {
-  console.log(id)
-  console.log(token)
-  console.log(data)
 
   const graphQLClient = new GraphQLClient(endpoint, {
     headers: {
@@ -238,5 +269,6 @@ export {
   getUser,
   getAthletes,
   getAthleteById,
-  updateUser
+  updateUser,
+  deleteCollaborator
 }
