@@ -20,6 +20,30 @@
   margin-left: 15px;
 }
 
+.date {
+  border: 1px solid #eee;
+  display: block;
+  width: 150%;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: #eee;
+  transition: 0.2s;
+  margin-bottom: 5px;
+}
+
+.select {
+  border: 1px solid #eee;
+  display: block;
+  width: 100%;
+  font-size: 1rem;
+  padding: 0.8rem;
+  border-radius: 0.4rem;
+  background: #eee;
+  transition: 0.2s;
+  margin-bottom: 5px;
+}
+
 .containerAbout {
   height: calc(100% - 80px);
   padding: 10px;

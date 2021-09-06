@@ -2,9 +2,72 @@ import { GraphQLClient, gql } from 'graphql-request'
 
 const endpoint = "http://localhost:4000/"
 
-const deleteCollaborator = async (id, token) => {
+const createAthlete = async (body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
 
-  console.log(`${id} - ${token}`)
+  console.log(body)
+
+  const mutation = gql`
+    mutation {
+      newCollaborator(data: {
+        name: "${body.name}"
+        email_1: "${body.email_1}",
+        phone_1: "${body.phone_1}",
+        n_enrollment_atl: "${body.n_enrollment_atl}"
+        function: "${body.function}"
+        positions: "${body.positions}"
+        n_uniform: ${body.n_uniform}
+        height: ${body.height}
+        weight: ${body.weight}
+        width: ${body.width}
+        gender: "${body.gender}"
+        bmi: ${body.bmi}
+        jump_distance: ${body.jump_distance}
+        jump_height: ${body.jump_height}
+        describe: "${body.describe}"
+        dt_birth: "${body.dt_birth}"
+        teams: {
+          team_id: ${body.team_id}
+          function: "${body.team_function}"
+          status: true
+        }
+    }){
+        id
+        phone_1
+        email_1
+        name
+        dt_birth
+        function
+        n_enrollment_atl
+        positions
+        n_uniform
+        height
+        weight
+        width
+        gender
+        bmi
+        jump_distance
+        jump_height
+        describe
+      }
+    }
+  `
+
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const deleteCollaborator = async (id, token) => {
 
   const graphQLClient = new GraphQLClient(endpoint, {
     headers: {
@@ -23,8 +86,8 @@ const deleteCollaborator = async (id, token) => {
         name
       }
   }
-  `  
-    
+  `
+
   console.log(mutation)
 
   try {
@@ -221,8 +284,6 @@ const updateAthlete = async (data, id, token) => {
     }
   })
 
-  console.log(` ${data} - ${id} - ${token}`)
-
   const mutation = gql`
   mutation{
     editCollaborator(
@@ -279,12 +340,39 @@ const updateAthlete = async (data, id, token) => {
   }
 }
 
+const getTeams = async (token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    query{
+      teams{
+        id
+        name
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+}
+
 export {
   signUpUser,
   signInUser,
   getUser,
   getAthletes,
   getAthleteById,
+  createAthlete,
   updateAthlete,
-  deleteCollaborator
+  deleteCollaborator,
+  getTeams
 }
