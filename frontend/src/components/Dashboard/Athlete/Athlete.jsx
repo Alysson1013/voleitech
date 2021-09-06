@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useContext} from 'react'
-import { useHistory, useParams} from 'react-router-dom'
+import React, { useEffect, useState, useContext } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { Container, Row, Col, Card, Form } from 'react-bootstrap';
 import moment from 'moment'
 
@@ -9,7 +9,7 @@ import Button from '../../Forms/Button'
 import Options from '../Options/Options';
 
 import { UserContext } from '../../../UserContext';
-import { getAthleteById, updateUser, deleteCollaborator } from '../../../Hooks/Api';
+import { getAthleteById, updateAthlete, deleteCollaborator } from '../../../Hooks/Api';
 
 import Chart from '../../Chart';
 
@@ -48,27 +48,27 @@ function Athlete() {
 
 
   const history = useHistory()
-  const {id} = useParams()
+  const { id } = useParams()
 
   const loadData = () => {
     const dataResult = {
-      n_floating_serve_points: dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_points, 0)/dataBody.results.length,
-      n_trip_serve_points: dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_points, 0)/dataBody.results.length,
-      n_attack_points: dataBody.results.reduce((prev, current) => prev + current.n_attack_points, 0)/dataBody.results.length,
-      n_dripping_point: dataBody.results.reduce((prev, current) => prev + current.n_dripping_point, 0)/dataBody.results.length,
-      n_box_point: dataBody.results.reduce((prev, current) => prev + current.n_box_point, 0)/dataBody.results.length,
-      n_block_points: dataBody.results.reduce((prev, current) => prev + current.n_block_points, 0)/dataBody.results.length
-    } 
+      n_floating_serve_points: dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_points, 0) / dataBody.results.length,
+      n_trip_serve_points: dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_points, 0) / dataBody.results.length,
+      n_attack_points: dataBody.results.reduce((prev, current) => prev + current.n_attack_points, 0) / dataBody.results.length,
+      n_dripping_point: dataBody.results.reduce((prev, current) => prev + current.n_dripping_point, 0) / dataBody.results.length,
+      n_box_point: dataBody.results.reduce((prev, current) => prev + current.n_box_point, 0) / dataBody.results.length,
+      n_block_points: dataBody.results.reduce((prev, current) => prev + current.n_block_points, 0) / dataBody.results.length
+    }
 
     const dataError = {
-      n_floating_serve_mistake: dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_mistake, 0)/dataBody.results.length,
-      n_trip_serve_mistake: dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_mistake, 0)/dataBody.results.length,
-      n_attack_mistake: dataBody.results.reduce((prev, current) => prev + current.n_attack_mistakedataBody, 0)/dataBody.results.length,
-      n_block_mistake: dataBody.results.reduce((prev, current) => prev + current.n_block_mistake, 0)/dataBody.results.length,
-      n_defense_mistake: dataBody.results.reduce((prev, current) => prev + current.n_defense_mistake, 0)/dataBody.results.length,
-      n_lifting_mistake: dataBody.results.reduce((prev, current) => prev + current.n_defense_mistake, 0)/dataBody.results.length,
+      n_floating_serve_mistake: dataBody.results.reduce((prev, current) => prev + current.n_floating_serve_mistake, 0) / dataBody.results.length,
+      n_trip_serve_mistake: dataBody.results.reduce((prev, current) => prev + current.n_trip_serve_mistake, 0) / dataBody.results.length,
+      n_attack_mistake: dataBody.results.reduce((prev, current) => prev + current.n_attack_mistakedataBody, 0) / dataBody.results.length,
+      n_block_mistake: dataBody.results.reduce((prev, current) => prev + current.n_block_mistake, 0) / dataBody.results.length,
+      n_defense_mistake: dataBody.results.reduce((prev, current) => prev + current.n_defense_mistake, 0) / dataBody.results.length,
+      n_lifting_mistake: dataBody.results.reduce((prev, current) => prev + current.n_defense_mistake, 0) / dataBody.results.length,
     }
-  
+
     return {
       dataResult,
       dataError
@@ -100,7 +100,7 @@ function Athlete() {
   }
 
   const loadChartData = async (dataResult, dataError) => {
-    if (dataResult || dataError){
+    if (dataResult || dataError) {
       setStateChartRadar({
         ...stateChartRadar,
         datasets: [
@@ -126,11 +126,11 @@ function Athlete() {
           }
         ]
       })
-    } 
+    }
   }
 
   useEffect(() => {
-    if(id) {
+    if (id) {
       loadAthlete()
       loadChartData()
     }
@@ -138,7 +138,7 @@ function Athlete() {
 
   useEffect(() => {
     const { dataResult, dataError } = loadData()
-    loadChartData(dataResult, dataError )
+    loadChartData(dataResult, dataError)
   }, [dataBody])
 
 
@@ -150,7 +150,7 @@ function Athlete() {
   const hadleDeleteButton = async (id, token) => {
     const isDelete = window.confirm("Você tem certeza que deseja deletar esse atleta?")
     console.log(id + " - " + token)
-    if (isDelete === true){ 
+    if (isDelete === true) {
       console.log(id + " - " + token)
       await deleteCollaborator(id, token)
       history.push('/dashboard/athletes')
@@ -162,10 +162,24 @@ function Athlete() {
 
     const body = {
       name: dataBody.name,
+      email_1: dataBody.email_1,
+      phone_1: dataBody.phone_1,
+      n_enrollment_atl: dataBody.n_enrollment_atl,
+      function: dataBody.function,
+      positions: dataBody.positions,
+      n_uniform: dataBody.n_uniform,
+      height: dataBody.height,
+      weight: dataBody.weight,
+      width: dataBody.width,
+      gender: dataBody.gender,
+      bmi: dataBody.bmi,
+      jump_distance: dataBody.jump_distance,
+      jump_height: dataBody.jump_height,
+      describe: dataBody.describe
     }
 
     try {
-      await updateUser(body, idAth, token)
+      await updateAthlete(body, idAth, token)
       setIsActive(false)
     } catch (e) {
       console.log(e)
@@ -179,42 +193,42 @@ function Athlete() {
         <Col className={`${styles.centerCol}`}>
           <Row className={`${styles.containerAbout}`} >
             <Col>
-            <Row>
-              <span><b className={styles.label}>Nome:</b> {dataBody.name} </span>
-              <span><b className={styles.label}>Idade:</b> {dataBody.dt_birth} anos </span>
-            </Row>
-            <Row>
-              <span><b className={styles.label}>Telefone:</b> {dataBody.phone_1} </span>
-              <span><b className={styles.label}>E-mail:</b> {dataBody.email_1} </span>
-            </Row>
-            <Row>
-              <span><b className={styles.label}>Função:</b> Alteta </span>
-              <span><b className={styles.label}>Inscrição:</b> {dataBody.n_enrollment_atl} </span>
-            </Row>  
-            <Row>
-              <span><b className={styles.label}>Posições:</b> {dataBody.positions} </span>
-              <span><b className={styles.label}>Uniforme Nº:</b> {dataBody.n_uniform} </span>
-            </Row>
-            <Row>
-              <span><b className={styles.label}>Altura:</b> {dataBody.height} M </span>
-              <span><b className={styles.label}>Envergadura:</b> {dataBody.width} M </span>
-            </Row>
-            <Row>
-              <span><b className={styles.label}>Genêro:</b> {dataBody.gender === "male" ? "Masculino" : "Fêminino"} </span>
-              <span><b className={styles.label}>BMI:</b> {dataBody.bmi} </span>
-            </Row>
-            <Row>
-              <span><b className={styles.label}>Salto Distância:</b> {dataBody.jump_distance} </span>
-              <span><b className={styles.label}>Salto Altura:</b> {dataBody.jump_height} </span>
-            </Row>
-            <Row>
-              {
-                dataBody.adresses &&
-                dataBody.adresses.map((address, index) => (
-                  <span><b className={styles.label}>Endereço {index + 1}:</b> { address.road }, { address.number } - {address.district} </span>
-                ))
-              }
-            </Row>
+              <Row>
+                <span><b className={styles.label}>Nome:</b> {dataBody.name} </span>
+                <span><b className={styles.label}>Idade:</b> {dataBody.dt_birth} anos </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Telefone:</b> {dataBody.phone_1} </span>
+                <span><b className={styles.label}>E-mail:</b> {dataBody.email_1} </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Função:</b> {dataBody.function === "athlete" ? "Atleta" : dataBody.function === "both" ? "Ambos" : "Assistente" } </span>
+                <span><b className={styles.label}>Inscrição:</b> {dataBody.n_enrollment_atl} </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Posições:</b> {dataBody.positions} </span>
+                <span><b className={styles.label}>Uniforme Nº:</b> {dataBody.n_uniform} </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Altura:</b> {dataBody.height} M </span>
+                <span><b className={styles.label}>Envergadura:</b> {dataBody.width} M </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Genêro:</b> {dataBody.gender === "male" ? "Masculino" : "Fêminino"} </span>
+                <span><b className={styles.label}>BMI:</b> {dataBody.bmi} </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Salto Distância:</b> {dataBody.jump_distance} </span>
+                <span><b className={styles.label}>Salto Altura:</b> {dataBody.jump_height} </span>
+              </Row>
+              <Row>
+                {
+                  dataBody.adresses &&
+                  dataBody.adresses.map((address, index) => (
+                    <span><b className={styles.label}>Endereço {index + 1}:</b> {address.road}, {address.number} - {address.district} </span>
+                  ))
+                }
+              </Row>
             </Col>
             <Col className={`${styles.graphicContainer}`}>
               <div>
@@ -223,9 +237,9 @@ function Athlete() {
             </Col>
           </Row>
           <Row className={`${styles.contentButton}`} >
+            <Button type="button" onClick={() => hadleDeleteButton(id, token)} >Deletar</Button>
             <Button type="button" onClick={() => history.push('/dashboard/athletes')} >Voltar</Button>
             <Button type="button" onClick={() => handleModalOpen(id)} >Editar</Button>
-            <Button type="button" onClick={() => hadleDeleteButton(id, token)} >Deletar</Button>
           </Row>
           <Modal isActive={isActive} setIsActive={setIsActive} >
             <form onSubmit={handleSubmit}>
@@ -236,18 +250,72 @@ function Athlete() {
                 <Card.Body>
                   <Form.Row>
                     <Col>
-                      <Input label="Nome" type="text" name="name" onChange={e => setDataBody({...dataBody, name:e.target.value})} value={dataBody.name} />
+                      <Input label="Nome" type="text" name="name" onChange={e => setDataBody({ ...dataBody, name: e.target.value })} value={dataBody.name} />
                     </Col>
                     <Col>
-                      <Input label="E-mail" type="email" name="email" />
+                      <Input label="E-mail" type="email" name="email_1" onChange={e => setDataBody({ ...dataBody, email_1: e.target.value })} value={dataBody.email_1} />
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Input label="Data de Nascimento" name="dt_birth" />
+                    <Col>
+                      <Input label="Telefone" type="text" name="phone_1" onChange={e => setDataBody({ ...dataBody, phone_1: e.target.value })} value={dataBody.phone_1} />
+                    </Col>
+                    <Col>
+                      <Input label="Número de Cadastro" type="number" name="n_enrollment_atl" onChange={e => setDataBody({ ...dataBody, n_enrollment_atl: e.target.value })} value={dataBody.n_enrollment_atl} />
+                    </Col>
                   </Form.Row>
                   <Form.Row>
-                
-                  </Form.Row>        
+                    <Col>
+                      <Input label="Função" type="text" name="function" onChange={e => setDataBody({ ...dataBody, function: e.target.value })} list="functionList" />
+                      <datalist id="functionList">
+                        <option value="athlete">Atleta</option>
+                        <option value="assistant">Assistente</option>
+                        <option value="both">Ambos</option>
+                      </datalist>
+                    </Col>
+                    <Col>
+                      <Input label="Posições" type="text" name="positions" onChange={e => setDataBody({ ...dataBody, positions: e.target.value })} value={dataBody.positions} />
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Nº Uniforme" type="number" name="n_uniform" onChange={e => setDataBody({ ...dataBody, n_uniform: e.target.value })} value={dataBody.n_uniform} />
+                    </Col>
+                    <Col>
+                      <Input label="Altura" type="number" name="height" onChange={e => setDataBody({ ...dataBody, height: e.target.value })} value={dataBody.height} />
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Envergadura" type="number" name="width" onChange={e => setDataBody({ ...dataBody, width: e.target.value })} value={dataBody.width} />
+                    </Col>
+                    <Col>
+                      <Input label="Peso" type="number" name="weight" onChange={e => setDataBody({ ...dataBody, weight: e.target.value })} value={dataBody.weight} />
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Sexo" type="text" name="gender" onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender} list="genderList" />
+                      <datalist id="genderList">
+                        <option value="male">Masculino</option>
+                        <option value="female">Feminino</option>
+                      </datalist>
+                    </Col>
+                    <Col>
+                      <Input label="BMI" type="number" name="bmi" onChange={e => setDataBody({ ...dataBody, bmi: e.target.value })} value={dataBody.bmi} />
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Salto Distancia" type="number" name="jump_distance" onChange={e => setDataBody({ ...dataBody, jump_distance: e.target.value })} value={dataBody.jump_distance} />
+                    </Col>
+                    <Col>
+                      <Input label="Salto de Altura" type="number" name="jump_height" onChange={e => setDataBody({ ...dataBody, jump_height: e.target.value })} value={dataBody.jump_height} />
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Input label="Descrição" type="text" name="weight" onChange={e => setDataBody({ ...dataBody, describe: e.target.value })} value={dataBody.describe} />
+                  </Form.Row>
                   <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Editar</Button>
                 </Card.Body>
               </Card>

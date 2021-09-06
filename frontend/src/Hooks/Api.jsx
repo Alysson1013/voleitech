@@ -213,7 +213,7 @@ const getAthleteById = async (token, id) => {
 
 
 
-const updateUser = async (data, id, token) => {
+const updateAthlete = async (data, id, token) => {
 
   const graphQLClient = new GraphQLClient(endpoint, {
     headers: {
@@ -221,14 +221,30 @@ const updateUser = async (data, id, token) => {
     }
   })
 
+  console.log(` ${data} - ${id} - ${token}`)
+
   const mutation = gql`
   mutation{
     editCollaborator(
       filter: {
-              id: ${id}
+        id: ${id}
       }
       data: {
         name: "${data.name}"
+        email_1: "${data.email_1}",
+        phone_1: "${data.phone_1}",
+        n_enrollment_atl: "${data.n_enrollment_atl}"
+        function: "${data.function}"
+        positions: "${data.positions}"
+        n_uniform: ${data.n_uniform}
+        height: ${data.height}
+        weight: ${data.weight}
+        width: ${data.width}
+        gender: "${data.gender}"
+        bmi: ${data.bmi}
+        jump_distance: ${data.jump_distance}
+        jump_height: ${data.jump_height}
+        describe: "${data.describe}"
       }
     ){
      id
@@ -269,6 +285,6 @@ export {
   getUser,
   getAthletes,
   getAthleteById,
-  updateUser,
+  updateAthlete,
   deleteCollaborator
 }

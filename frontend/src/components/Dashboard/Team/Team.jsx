@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Bar, Pie } from 'react-chartjs-2';
 
-import { getAthleteById, updateUser } from '../../../Hooks/Api';
+import { getAthleteById, updateAthlete } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
 
 import Options from '../Options/Options';
@@ -86,7 +86,7 @@ export default function Team(){
       }
 
       try {
-        await updateUser(body, idAth, token)
+        await updateAthlete(body, idAth, token)
         setIsActive(false)
       } catch (e) {
         console.log(e)

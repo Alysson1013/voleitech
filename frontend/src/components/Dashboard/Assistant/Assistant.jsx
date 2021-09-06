@@ -5,7 +5,7 @@ import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import moment from 'moment';
 import { Pie } from 'react-chartjs-2'
 
-import { getAthleteById, updateUser } from '../../../Hooks/Api';
+import { getAthleteById, updateAthlete } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
 
 import Chart from '../../Chart';
@@ -96,7 +96,7 @@ export default function Assistant() {
     }
 
     try {
-      await updateUser(body, idAth, token)
+      await updateAthlete(body, idAth, token)
       setIsActive(false)
     } catch (e) {
       console.log(e)
