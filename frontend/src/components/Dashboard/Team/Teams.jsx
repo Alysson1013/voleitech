@@ -76,9 +76,45 @@ const Teams = () => {
               </Card.Header>
               <Card.Body>
                 <Form.Row>
-                  
+                  <Col>
+                    <Input label="Nome" type="text" name="name" onChange={e => setDataBody({ ...dataBody, name: e.target.value })} value={dataBody.name} />
+                  </Col>
+                  <Col>
+                    <label htmlFor="gender">Sexo</label>
+                    <select name="gender" id="gender" className={styles.select} onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender}>
+                      <option value="male" selected>Masculino</option>
+                      <option value="female">Feminino</option>
+                    </select>
+                  </Col>
                 </Form.Row>
-
+                <Form.Row>
+                  <Col>
+                    <Input label="Altura Média" type="number" name="average_height" onChange={e => setDataBody({ ...dataBody, average_height: e.target.value })} value={dataBody.average_height} />
+                  </Col>
+                  <Col>
+                    <Input label="Peso Médio" type="number" name="average_weight" onChange={e => setDataBody({ ...dataBody, average_weight: e.target.value })} value={dataBody.average_weight} />
+                  </Col>
+                </Form.Row>
+                <Form.Row>
+                  <Col>
+                    <Input label="Idade Média" type="number" name="average_age" onChange={e => setDataBody({ ...dataBody, average_age: e.target.value })} value={dataBody.average_age} />
+                  </Col>
+                  <Col>
+                    <label htmlFor="categories">Categoria</label>
+                    <select name="categories" id="categories" className={styles.select} onChange={e => setDataBody({ ...dataBody, team_id: e.target.value })} value={dataBody.team_id}>
+                      {
+                        teams.map(team => (
+                          <option value={team.id} selected >{team.name}</option>
+                        ))
+                      }
+                    </select>
+                  </Col>
+                </Form.Row>
+                <Form.Row>
+                  <Col>
+                    <Input label="Descrição" type="text" name="describe" onChange={e => setDataBody({ ...dataBody, describe: e.target.value })} value={dataBody.describe} />
+                  </Col>
+                </Form.Row>
                 <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Adicionar</Button>
               </Card.Body>
             </Card>
