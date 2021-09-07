@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import moment from 'moment';
 import { useHistory, useParams } from 'react-router';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
-import { Bar, Pie } from 'react-chartjs-2';
+import { Bar } from 'react-chartjs-2';
 
 import { getAthleteById, updateAthlete } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';

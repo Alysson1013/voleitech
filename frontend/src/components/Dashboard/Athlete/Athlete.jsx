@@ -147,7 +147,9 @@ function Athlete() {
     setIdAth(id)
   }
 
-  const handleAddAddress = () => {
+  const handleAddAddress = (e) => {
+    e.preventDefault()
+
     
   }
 
@@ -225,11 +227,6 @@ function Athlete() {
                 <span><b className={styles.label}>Salto Distância:</b> {dataBody.jump_distance} </span>
                 <span><b className={styles.label}>Salto Altura:</b> {dataBody.jump_height} </span>
                 
-              </Row>
-              <Row>
-                <span className={styles.label} onClick={handleAddAddress}> 
-                  <b>Adicionar endereço</b>
-                </span>
               </Row>
               <Row>
                 {

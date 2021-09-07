@@ -348,10 +348,18 @@ const getTeams = async (token) => {
   })
 
   const query = gql`
-    query{
-      teams{
-        id
-        name
+    query {
+      teams {
+		  id
+      category {
+			  name_category
+      }
+      gender
+      name
+      average_age
+      average_height
+      average_weight
+      describe
       }
     }
   `
