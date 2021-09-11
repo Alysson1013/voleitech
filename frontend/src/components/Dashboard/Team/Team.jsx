@@ -32,8 +32,7 @@ export default function Team(){
       category: ''
     })
     const [stateChartPie, setStateChartPie] = useState({
-      labels: ['January', 'February', 'March',
-               'April', 'May'],
+      labels: ['Idade', 'Altura', 'Peso'],
       datasets: []
     })
 
@@ -60,11 +59,11 @@ export default function Team(){
         ...stateChartPie,
         datasets: [
           {
-            label: 'Rainfall',
-            backgroundColor: '#22e7e7',
+            label: 'Medidas dos Atletas da Equipe',
+            backgroundColor: '#fb1',
             borderColor: 'rgba(0,0,0,1)',
             borderWidth: 2,
-            data: [65, 59, 80, 81, 56]
+            data: [dataBody.average_age, dataBody.average_height, dataBody.average_weight]
           }
         ]
       })
@@ -75,9 +74,12 @@ export default function Team(){
     useEffect(() => {
       if(id) {
         loadTeam()
-        loadChartData()
       }
     }, [id])
+
+    useEffect(() => {
+      loadChartData()
+    }, [dataBody])
 
     const handleModalOpen = (id) => {
       setIsActive(true)
@@ -107,15 +109,19 @@ export default function Team(){
           <Options />
           <Col className={`${styles.centerCol}`}>
             <Row className={`${styles.containerAbout}`} >
-              <Col>
-                <span><b>Nome da Equipe:</b> {dataBody.name} </span>
-              </Col>
+                <Col>
+                  <span><b>Nome:</b> {dataBody.name} </span>
+                  <span><b>Categoria:</b> {dataBody.category} </span>
+                  <span><b>Genêro:</b> {dataBody.gender === 'male' ? 'Masculino' : 'Feminino'} </span>
+                  <span><b>Descrição:</b> {dataBody.describe} </span>
+                </Col>
               <Col className={`${styles.graphicContainer}`}>
                 <div>
                   <Chart TypeChart={Bar} state={stateChartPie} className={`${styles.chartPie}`} />
                 </div>
               </Col>
             </Row>
+
             <Row className={`${styles.contentButton}`} >
               <Button type="button" onClick={() => history.push('/dashboard/teams')} >Voltar</Button>
               <Button type="button" onClick={() => handleModalOpen(id)} >Editar</Button>
