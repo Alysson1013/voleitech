@@ -13,6 +13,7 @@ const Teams = () => {
   const { getToken } = React.useContext(UserContext);
   const token = getToken()
   const [teams, setTeams] = useState([])
+  const [categories, setCategories] = useState([])
   const [isActive, setIsActive] = useState(false)
   const [dataBody, setDataBody] = useState({
     name_category: '',

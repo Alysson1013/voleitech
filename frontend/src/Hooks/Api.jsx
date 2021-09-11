@@ -373,6 +373,41 @@ const getTeams = async (token) => {
   }
 }
 
+const getTeamById = async (id, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    query{
+	    team(filter: {
+        id: ${id}
+      }){
+      id
+      category {
+        name_category
+      }
+        name
+        describe
+        gender
+        average_age
+        average_height
+        average_weight
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+}
+
 export {
   signUpUser,
   signInUser,
@@ -382,5 +417,6 @@ export {
   createAthlete,
   updateAthlete,
   deleteCollaborator,
-  getTeams
+  getTeams,
+  getTeamById
 }

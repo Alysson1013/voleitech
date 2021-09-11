@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router';
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
 
-import { getAthleteById, updateAthlete } from '../../../Hooks/Api';
+import { getTeamById, updateAthlete } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
 
 import Options from '../Options/Options';
@@ -24,10 +24,12 @@ export default function Team(){
     const [idAth, setIdAth] = useState('')
     const [dataBody, setDataBody] = useState({
       name: '',
-      email: '',
-      phone_1: '',
-      function: '',
-      dt_birth: '',
+      describe: '',
+      gender: '',
+      average_age: 0,
+      average_height: 0,
+      average_weight: 0,
+      category: ''
     })
     const [stateChartPie, setStateChartPie] = useState({
       labels: ['January', 'February', 'March',
@@ -37,17 +39,19 @@ export default function Team(){
 
 
     const history = useHistory()
-    const {id} = useParams()
+    const { id } = useParams()
 
-    const loadAthlete = async () => {
-      const response = await getAthleteById(token, id)
+    const loadTeam = async () => {
+      const response = await getTeamById(id, token)
       setDataBody({
         ...dataBody,
-        name: response.collaborator.name,
-        email: response.collaborator.email,
-        phone_1: response.collaborator.phone_1,
-        function: response.collaborator.function,
-        dt_birth: Number(moment(new Date()).year()) - Number(moment(response.collaborator.dt_birth).year())
+        name: response.team.name,
+        describe: response.team.describe,
+        gender: response.team.gender,
+        average_age: response.team.average_age,
+        average_height: response.team.average_height,
+        average_weight: response.team.average_weight,
+        category: response.team.category.name_category
       })
     }
 
@@ -57,7 +61,7 @@ export default function Team(){
         datasets: [
           {
             label: 'Rainfall',
-            backgroundColor: 'rgba(75,192,192,1)',
+            backgroundColor: '#22e7e7',
             borderColor: 'rgba(0,0,0,1)',
             borderWidth: 2,
             data: [65, 59, 80, 81, 56]
@@ -66,9 +70,11 @@ export default function Team(){
       })
     }
 
+    console.log(id)
+
     useEffect(() => {
       if(id) {
-        loadAthlete()
+        loadTeam()
         loadChartData()
       }
     }, [id])
@@ -92,6 +98,8 @@ export default function Team(){
         console.log(e)
       }
     }
+
+    console.log(dataBody)
 
     return (
       <Container className={`${styles.dash}`}>
