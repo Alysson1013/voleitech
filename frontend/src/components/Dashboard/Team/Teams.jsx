@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Card, Col, Row, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { getTeams } from '../../../Hooks/Api';
+import { createTeam, getCategories, getTeams } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
 
 import styles from './Team.module.css';
@@ -22,12 +22,43 @@ const Teams = () => {
     average_age: 0,
     average_height: 0,
     average_weight: 0,
-    describe: ''
+    describe: '',
+    category_id: 0
   })
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+
+    const body = {
+      name: dataBody.name,
+      gender: dataBody.gender,
+      category_id: dataBody.category_id,
+      average_age: dataBody.average_age,
+      average_height: dataBody.average_height,
+      average_weight: dataBody.average_weight,
+      describe: dataBody.describe
+    }
+
+    console.log("Aqui")
+    console.log(body)
+
+    try {
+      await createTeam(body, token)
+      setIsActive(false)
+      loadTeams()
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const loadTeams = async () => {
     const response = await getTeams(token)
     setTeams(response.teams)
+  }
+
+  const loadCategories = async () => {
+    const response = await getCategories(token)
+    setCategories(response.categories)
   }
 
   const handleModalOpen = () => {
@@ -38,7 +69,11 @@ const Teams = () => {
     loadTeams()
   }, [token])
 
-  console.log(teams)
+  React.useEffect(() => {
+    loadCategories()
+  }, [token])
+
+  console.log(categories)
 
   return (
     <>
@@ -70,7 +105,7 @@ const Teams = () => {
           </Card>
         </Row>
         <Modal isActive={isActive} setIsActive={setIsActive} >
-          <form>
+          <form onSubmit={handleSubmit}>
             <Card>
               <Card.Header as="h1">
                 Nova Equipe
@@ -102,10 +137,10 @@ const Teams = () => {
                   </Col>
                   <Col>
                     <label htmlFor="categories">Categoria</label>
-                    <select name="categories" id="categories" className={styles.select} onChange={e => setDataBody({ ...dataBody, team_id: e.target.value })} value={dataBody.team_id}>
+                    <select name="categories" id="categories" className={styles.select} onChange={e => setDataBody({ ...dataBody, category_id: e.target.value })} value={dataBody.category_id}>
                       {
-                        teams.map(team => (
-                          <option value={team.id} selected >{team.name}</option>
+                        categories.map(category => (
+                          <option value={category.id} selected >{category.name_category}</option>
                         ))
                       }
                     </select>

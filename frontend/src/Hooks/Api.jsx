@@ -2,6 +2,31 @@ import { GraphQLClient, gql } from 'graphql-request'
 
 const endpoint = "http://localhost:4000/"
 
+const getCategories = async (token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    query {
+      categories{
+        id
+        name_category
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+}
+
 const createAthlete = async (body, token) => {
   const graphQLClient = new GraphQLClient(endpoint, {
     headers: {
@@ -395,6 +420,10 @@ const getTeamById = async (id, token) => {
         average_age
         average_height
         average_weight
+        collaborators {
+          name
+          function
+        } 
       }
     }
   `
@@ -408,7 +437,99 @@ const getTeamById = async (id, token) => {
   }
 }
 
+const createTeam = async (body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+    mutation {
+      newTeam(
+        data: {
+          name: "${body.name}"
+          gender: "${body.gender}"
+          category_id: ${body.category_id}
+          average_age: ${body.average_age}
+          average_height: ${body.average_height}
+          average_weight: ${body.average_weight}
+          describe: "${body.describe}"
+        }
+    ){
+      id
+      category {
+        name_category
+      }
+      gender
+      name
+      average_age
+      average_height
+      average_weight
+      describe
+    }
+  }
+  `
+
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const updateTeam = async (id, body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+    mutation {
+      editTeam(
+        filter: {
+          id: ${id}
+        }
+        data: {
+          name: ${body.name}
+          gender: ${body.gender}
+          category_id: ${body.category_id}
+          average_age: ${body.average_age}
+          average_height: ${body.average_height}
+          average_weight: ${body.average_weight}
+          describe: ${body.describe}
+        }
+    ){
+      id
+      category {
+        name_category
+      }
+      gender
+      name
+      average_age
+      average_height
+      average_weight
+      describe
+    }
+  }
+  `
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+
+
 export {
+  getCategories,
   signUpUser,
   signInUser,
   getUser,
@@ -418,5 +539,6 @@ export {
   updateAthlete,
   deleteCollaborator,
   getTeams,
-  getTeamById
+  getTeamById,
+  createTeam,
 }

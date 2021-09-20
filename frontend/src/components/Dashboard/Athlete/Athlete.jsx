@@ -301,7 +301,7 @@ function Athlete() {
                   </Form.Row>
                   <Form.Row>
                     <Col>
-                      <label htmlFor="gender">Time Inicial</label>
+                      <label htmlFor="gender">Genero</label>
                       <select name="gender" id="gender" className={styles.select} onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender}>
                         <option value="male" selected>Masculino</option>
                         <option value="female">Feminino</option>
@@ -320,7 +320,9 @@ function Athlete() {
                     </Col>
                   </Form.Row>
                   <Form.Row>
-                    <Input label="Descrição" type="text" name="weight" onChange={e => setDataBody({ ...dataBody, describe: e.target.value })} value={dataBody.describe} />
+                    <Col>
+                      <Input label="Descrição" type="text" name="weight" onChange={e => setDataBody({ ...dataBody, describe: e.target.value })} value={dataBody.describe} />
+                    </Col>
                   </Form.Row>
                   <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Editar</Button>
                 </Card.Body>

@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import moment from 'moment';
 import { useHistory, useParams } from 'react-router';
+import { Link } from 'react-router-dom'
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
 
@@ -29,7 +30,8 @@ export default function Team(){
       average_age: 0,
       average_height: 0,
       average_weight: 0,
-      category: ''
+      category: '',
+      collaborators: []
     })
     const [stateChartPie, setStateChartPie] = useState({
       labels: ['Idade', 'Altura', 'Peso'],
@@ -50,7 +52,9 @@ export default function Team(){
         average_age: response.team.average_age,
         average_height: response.team.average_height,
         average_weight: response.team.average_weight,
-        category: response.team.category.name_category
+        category: response.team.category.name_category,
+        collaborators: response.team.collaborators,
+        category_id: response.team.category_id
       })
     }
 
@@ -60,7 +64,7 @@ export default function Team(){
         datasets: [
           {
             label: 'Medidas dos Atletas da Equipe',
-            backgroundColor: '#fb1',
+            backgroundColor: 'rgba(255,	187,	17, 0.7)',
             borderColor: 'rgba(0,0,0,1)',
             borderWidth: 2,
             data: [dataBody.average_age, dataBody.average_height, dataBody.average_weight]
@@ -114,6 +118,12 @@ export default function Team(){
                   <span><b>Categoria:</b> {dataBody.category} </span>
                   <span><b>Genêro:</b> {dataBody.gender === 'male' ? 'Masculino' : 'Feminino'} </span>
                   <span><b>Descrição:</b> {dataBody.describe} </span>
+                  <span><b>Membros da Equipe</b></span>
+                  {
+                    dataBody.collaborators.map(value => (
+                      <span>{value.name} - {value.function === "athlete" ? "Atleta" : value.function === "assistant" ? "Assistente" : "Atleta e Assistente"}</span>
+                    ))
+                  }
                 </Col>
               <Col className={`${styles.graphicContainer}`}>
                 <div>
@@ -135,24 +145,28 @@ export default function Team(){
                   <Card.Body>
                     <Form.Row>
                       <Col>
-                        <Input label="Nome" type="text" name="name" onChange={e => setDataBody({...dataBody, name:e.target.value})} value={dataBody.name} />
+                        <Input label="Nome" type="text" name="name" onChange={e => setDataBody({ ...dataBody, name: e.target.value })} value={dataBody.name} />
                       </Col>
                       <Col>
-                        <Input label="E-mail" type="email" name="email" />
+                        <label htmlFor="gender">Genero</label>
+                        <select name="gender" id="gender" className={styles.select} onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender}>
+                          <option value="male" selected>Masculino</option>
+                          <option value="female">Feminino</option>
+                        </select>
                       </Col>
                     </Form.Row>
                     <Form.Row>
                       <Col>
-                        <Input label="Senha" type="password" name="password" />
+                        <Input label="Idade Média" type="number" name="average_age" onChange={e => setDataBody({ ...dataBody, average_age: e.target.value })} value={dataBody.average_age} />
                       </Col>
                       <Col>
-                        <Input label="Confirmar Senha" type="password" name="password" />
+                        <Input label="Altura Média" type="number" name="average_height" onChange={e => setDataBody({ ...dataBody, average_height: e.target.value })} value={dataBody.average_height} />
                       </Col>
                     </Form.Row>
                     <Form.Row>
-                      <Col>
-                        <Input label="Número de Inscrição" type="text" name="subscription" />
-                      </Col>
+                        <Col>
+                          <Input label="Peso médio" type="number" name="average_weight" onChange={e => setDataBody({ ...dataBody, average_weight: e.target.value })} value={dataBody.average_weight} />
+                        </Col>
                     </Form.Row>
                     <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Editar</Button>
                   </Card.Body>
