@@ -410,10 +410,11 @@ const getTeamById = async (id, token) => {
 	    team(filter: {
         id: ${id}
       }){
-      id
-      category {
-        name_category
-      }
+        id
+        category_id
+        category {
+          name_category
+        }
         name
         describe
         gender
@@ -463,6 +464,7 @@ const createTeam = async (body, token) => {
       }
       gender
       name
+      category_id
       average_age
       average_height
       average_weight
@@ -495,19 +497,20 @@ const updateTeam = async (id, body, token) => {
           id: ${id}
         }
         data: {
-          name: ${body.name}
-          gender: ${body.gender}
+          name: "${body.name}"
+          gender: "${body.gender}"
           category_id: ${body.category_id}
           average_age: ${body.average_age}
           average_height: ${body.average_height}
           average_weight: ${body.average_weight}
-          describe: ${body.describe}
+          describe: "${body.describe}"
         }
     ){
       id
       category {
         name_category
       }
+      category_id
       gender
       name
       average_age
@@ -517,6 +520,8 @@ const updateTeam = async (id, body, token) => {
     }
   }
   `
+  
+  console.log("Aqui - " + body.category_id)
 
   try {
     const response = await graphQLClient.request(mutation)
@@ -526,6 +531,118 @@ const updateTeam = async (id, body, token) => {
   }
 }
 
+const getScouts = async (token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    {
+      scouts {
+        id
+        name
+        v_floating_serve
+        v_floating_serve_points
+        v_floating_serve_mistake
+        v_trip_serve
+        v_trip_serve_points
+        v_trip_serve_mistake
+        v_attack
+        v_attack_points
+        v_attack_mistake
+        v_box_point
+        v_block
+        v_block_mistake
+        v_block_used_mistake
+        v_block_points
+        v_general_passes
+        v_pass_mistake
+        v_pass_a
+        v_pass_b
+        v_pass_c
+        v_defense_general
+        v_defense_mistake
+        v_defense_a
+        v_defense_b
+        v_defense_c
+        v_lifting
+        v_lifting_mistake
+        v_lifting_correct
+        v_initiative
+        v_initiative_lack
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+
+} 
+
+const getScoutById = async (token, id) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    query {
+      scout(
+        filter: {
+          id: ${id}
+        }
+      ){
+        id
+        name
+        v_floating_serve
+        v_floating_serve_points
+        v_floating_serve_mistake
+        v_trip_serve
+        v_trip_serve_points
+        v_trip_serve_mistake
+        v_attack
+        v_attack_points
+        v_attack_mistake
+        v_box_point
+        v_block
+        v_block_mistake
+        v_block_used_mistake
+        v_block_points
+        v_general_passes
+        v_pass_mistake
+        v_pass_a
+        v_pass_b
+        v_pass_c
+        v_defense_general
+        v_defense_mistake
+        v_defense_a
+        v_defense_b
+        v_defense_c
+        v_lifting
+        v_lifting_mistake
+        v_lifting_correct
+        v_initiative
+        v_initiative_lack
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+}
 
 
 export {
@@ -541,4 +658,7 @@ export {
   getTeams,
   getTeamById,
   createTeam,
+  updateTeam,
+  getScouts,
+  getScoutById
 }

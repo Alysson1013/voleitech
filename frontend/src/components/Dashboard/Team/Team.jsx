@@ -1,11 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react'
 import moment from 'moment';
 import { useHistory, useParams } from 'react-router';
-import { Link } from 'react-router-dom'
 import { Card, Col, Container, Form, Row } from 'react-bootstrap';
 import { Bar } from 'react-chartjs-2';
 
-import { getTeamById, updateAthlete } from '../../../Hooks/Api';
+import { getTeamById, getCategories, updateTeam } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
 
 import Options from '../Options/Options';
@@ -23,6 +22,7 @@ export default function Team(){
 
     const [isActive, setIsActive] = useState(false)
     const [idAth, setIdAth] = useState('')
+    const [categories, setCategories] = useState([])
     const [dataBody, setDataBody] = useState({
       name: '',
       describe: '',
@@ -31,6 +31,7 @@ export default function Team(){
       average_height: 0,
       average_weight: 0,
       category: '',
+      category_id: 0,
       collaborators: []
     })
     const [stateChartPie, setStateChartPie] = useState({
@@ -73,6 +74,11 @@ export default function Team(){
       })
     }
 
+    const loadCategories = async () => {
+      const response = await getCategories(token)
+      setCategories(response.categories)
+    }
+
     console.log(id)
 
     useEffect(() => {
@@ -85,6 +91,10 @@ export default function Team(){
       loadChartData()
     }, [dataBody])
 
+    useEffect(() => {
+      loadCategories()
+    }, [token])
+
     const handleModalOpen = (id) => {
       setIsActive(true)
       setIdAth(id)
@@ -93,12 +103,21 @@ export default function Team(){
     const handleSubmit = async (e) => {
       e.preventDefault()
 
+      console.log(dataBody)
+
       const body = {
         name: dataBody.name,
+        gender: dataBody.gender,
+        category_id: dataBody.category_id,
+        average_age: dataBody.average_age,
+        average_height: dataBody.average_height,
+        average_weight: dataBody.average_weight,
+        describe: dataBody.describe
       }
 
       try {
-        await updateAthlete(body, idAth, token)
+        await updateTeam(idAth, body, token)
+        loadTeam()
         setIsActive(false)
       } catch (e) {
         console.log(e)
@@ -143,31 +162,49 @@ export default function Team(){
                     Editar Informações
                   </Card.Header>
                   <Card.Body>
-                    <Form.Row>
-                      <Col>
-                        <Input label="Nome" type="text" name="name" onChange={e => setDataBody({ ...dataBody, name: e.target.value })} value={dataBody.name} />
-                      </Col>
-                      <Col>
-                        <label htmlFor="gender">Genero</label>
-                        <select name="gender" id="gender" className={styles.select} onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender}>
-                          <option value="male" selected>Masculino</option>
-                          <option value="female">Feminino</option>
-                        </select>
-                      </Col>
-                    </Form.Row>
-                    <Form.Row>
-                      <Col>
-                        <Input label="Idade Média" type="number" name="average_age" onChange={e => setDataBody({ ...dataBody, average_age: e.target.value })} value={dataBody.average_age} />
-                      </Col>
-                      <Col>
-                        <Input label="Altura Média" type="number" name="average_height" onChange={e => setDataBody({ ...dataBody, average_height: e.target.value })} value={dataBody.average_height} />
-                      </Col>
-                    </Form.Row>
-                    <Form.Row>
-                        <Col>
-                          <Input label="Peso médio" type="number" name="average_weight" onChange={e => setDataBody({ ...dataBody, average_weight: e.target.value })} value={dataBody.average_weight} />
-                        </Col>
-                    </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Nome" type="text" name="name" onChange={e => setDataBody({ ...dataBody, name: e.target.value })} value={dataBody.name} />
+                    </Col>
+                    <Col>
+                      <label htmlFor="gender">Sexo</label>
+                      <select name="gender" id="gender" className={styles.select} onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender}>
+                        <option value="male" selected>Masculino</option>
+                        <option value="female">Feminino</option>
+                      </select>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Altura Média" type="number" name="average_height" onChange={e => setDataBody({ ...dataBody, average_height: e.target.value })} value={dataBody.average_height} />
+                    </Col>
+                    <Col>
+                      <Input label="Peso Médio" type="number" name="average_weight" onChange={e => setDataBody({ ...dataBody, average_weight: e.target.value })} value={dataBody.average_weight} />
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Idade Média" type="number" name="average_age" onChange={e => setDataBody({ ...dataBody, average_age: e.target.value })} value={dataBody.average_age} />
+                    </Col>
+                    <Col>
+                      <label htmlFor="categories">Categoria</label>
+                      <select name="categories" id="categories" className={styles.select} onChange={e => setDataBody({ ...dataBody, category_id: e.target.value })} value={dataBody.category_id}>
+
+                        {
+                          categories.map(category => (
+                            dataBody.category_id === category.id ? 
+                            <option value={category.id} selected>{category.name_category}</option> :
+                            <option value={category.id}>{category.name_category}</option>
+                          ))
+                        }
+                      </select>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <Input label="Descrição" type="text" name="describe" onChange={e => setDataBody({ ...dataBody, describe: e.target.value })} value={dataBody.describe} />
+                    </Col>
+                  </Form.Row>
                     <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Editar</Button>
                   </Card.Body>
                 </Card>
