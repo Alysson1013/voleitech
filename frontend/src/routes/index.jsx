@@ -8,6 +8,7 @@ import Athletes from '../components/Dashboard/Athlete/Athletes'
 import Training from '../components/Dashboard/Training/Training'
 import User from '../components/Dashboard/User/User'
 import Scouts from '../components/Dashboard/Scouts/Scouts'
+import Scout from '../components/Dashboard/Scouts/Scout'
 import LoginForm from '../components/Login/LoginForm'
 import LoginCadastro from '../components/Login/LoginCadastro'
 import Athlete from '../components/Dashboard/Athlete/Athlete'
@@ -36,7 +37,7 @@ export default function Routes() {
       <Route path="/assistant/:id" component={Assistant} />
       <Route path="/dashoboard/user" component={<User />} />
       <Route path="/dashboard/scouts" component={<Scouts />} />
-      <Route path="/scout/:id" isPrivate component={Athlete} />
+      <Route path="/scout/:id" isPrivate component={Scout} />
     </Switch>
   )
 }

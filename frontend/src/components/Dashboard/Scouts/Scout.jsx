@@ -14,7 +14,7 @@ import Button from '../../Forms/Button';
 import Modal from '../../Modal';
 import Input from '../../Forms/Input';
 
-import styles from './Team.module.css';
+import styles from './Scouts.module.css';
 
 export default function Team(){
     const { getToken } = useContext(UserContext);
@@ -63,7 +63,40 @@ export default function Team(){
 
     const loadScout = async () => {
       const response = await getScoutById(token, id)
-      
+      setDataBody({
+        ...dataBody,
+        name: response.scout.name,
+        v_floating_serve: response.scout.v_floating_serve,
+        v_floating_serve_points: response.scout.v_floating_serve_points,
+        v_floating_serve_mistake: response.scout.v_floating_serve_mistake,
+        v_trip_serve: response.scout.v_trip_serve,
+        v_trip_serve_points: response.scout.v_trip_serve_points,
+        v_trip_serve_mistake: response.scout.v_trip_serve_mistake,
+        v_attack: response.scout.v_attack,
+        v_attack_points: response.scout.v_attack_points,
+        v_attack_mistake: response.scout.v_attack_mistake,
+        v_box_point: response.scout.v_box_point,
+        v_block: response.scout.v_block,
+        v_block_mistake: response.scout.v_block_mistake,
+        v_block_used_mistake: response.scout.v_block_used_mistake,
+        v_block_points: response.scout.v_block_points,
+        v_general_passes: response.scout.v_general_passes,
+        v_pass_mistake: response.scout.v_pass_mistake,
+        v_pass_a: response.scout.v_pass_a,
+        v_pass_b: response.scout.v_pass_b,
+        v_pass_c: response.scout.v_pass_c,
+        v_defense_general: response.scout.v_defense_general,
+        v_defense_mistake: response.scout.v_defense_mistake,
+        v_defense_a: response.scout.v_defense_a,
+        v_defense_b: response.scout.v_defense_b,
+        v_defense_c: response.scout.v_defense_c,
+        v_lifting: response.scout.v_lifting,
+        v_lifting_mistake: response.scout.v_lifting_mistake,
+        v_lifting_correct: response.scout.v_lifting_correct,
+        v_initiative: response.scout.v_initiative,
+        v_initiative_lack: response.scout.v_initiative_lack
+
+      })
     }
 
     useEffect(() => {
@@ -88,20 +121,220 @@ export default function Team(){
             <Row className={`${styles.containerAbout}`} >
                 <Col>
                   <span><b>Nome:</b> {dataBody.name} </span>
-                  <span><b>Categoria:</b> {dataBody.category} </span>
-                  <span><b>Genêro:</b> {dataBody.gender === 'male' ? 'Masculino' : 'Feminino'} </span>
-                  <span><b>Descrição:</b> {dataBody.describe} </span>
-                  <span><b>Membros da Equipe</b></span>
                   {
-                    dataBody.collaborators.map(value => (
-                      <span>{value.name} - {value.function === "athlete" ? "Atleta" : value.function === "assistant" ? "Assistente" : "Atleta e Assistente"}</span>
-                    ))
+                    dataBody.v_floating_serve && 
+                    <span>
+                      <b>Valor Saque Flutuante: </b> 
+                      {dataBody.v_floating_serve}
+                    </span>
+                  }
+                  {
+                    dataBody.v_floating_serve_points &&
+                    <span>
+                      <b>Pontos Saque Flutuante: </b> 
+                      {dataBody.v_floating_serve_points} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_floating_serve_mistake &&
+                    <span>
+                      <b>Erros Saque Flutuante: </b> 
+                      {dataBody.v_floating_serve_mistake} 
+                    </span>
+                  }
+                  { 
+                    dataBody.v_trip_serve && 
+                    <span>
+                      <b>Valor Saque Viagem: </b> 
+                      {dataBody.v_trip_serve} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_trip_serve_points &&
+                    <span>
+                      <b>Pontos de Saque Viagem: </b> 
+                      {dataBody.v_trip_serve_points} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_trip_serve_mistake &&
+                    <span>
+                      <b>Saque Viagem Erro: </b> 
+                      {dataBody.v_trip_serve_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_attack &&
+                    <span>
+                      <b>Valor Ataque: </b> 
+                      {dataBody.v_attack} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_attack_points &&
+                    <span>
+                      <b>Pontos Ataque: </b> 
+                      {dataBody.v_attack_points} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_attack_mistake &&
+                    <span>
+                      <b>Ataque Erro: </b> 
+                      {dataBody.v_attack_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_box_point &&
+                    <span>
+                      <b>Saque Caixinha: </b> 
+                      {dataBody.v_box_point} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_block &&
+                    <span>
+                      <b>Valor Bloqueio: </b> 
+                      {dataBody.v_block} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_block_mistake &&
+                    <span>
+                      <b>Erro Bloqueio: </b> 
+                      {dataBody.v_block_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_block_mistake &&
+                    <span>
+                      <b>Erro Bloqueio: </b> 
+                      {dataBody.v_block_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_block_points &&
+                    <span>
+                      <b>Pontos de Bloqueio: </b> 
+                      {dataBody.v_block_points} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_general_passes &&
+                    <span>
+                      <b>Passes Gerais: </b> 
+                      {dataBody.v_general_passes} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_pass_mistake &&
+                    <span>
+                      <b>Erros de Passe: </b> 
+                      {dataBody.v_pass_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_pass_mistake &&
+                    <span>
+                      <b>Erros de Passe: </b> 
+                      {dataBody.v_pass_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_pass_a &&
+                    <span>
+                      <b>Passe A: </b> 
+                      {dataBody.v_pass_a} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_pass_b &&
+                    <span>
+                      <b>Passe B: </b> 
+                      {dataBody.v_pass_b} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_pass_c &&
+                    <span>
+                      <b>Passe C: </b> 
+                      {dataBody.v_pass_c} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_defense_general &&
+                    <span>
+                      <b>Defesa Geral: </b> 
+                      {dataBody.v_defense_general} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_defense_mistake &&
+                    <span>
+                      <b>Erros de Defesa: </b> 
+                      {dataBody.v_defense_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_defense_a &&
+                    <span>
+                      <b>Defesa A: </b> 
+                      {dataBody.v_defense_a} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_defense_b &&
+                    <span>
+                      <b>Defesa B: </b> 
+                      {dataBody.v_defense_b} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_defense_c &&
+                    <span>
+                      <b>Defesa C: </b> 
+                      {dataBody.v_defense_c} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_lifting &&
+                    <span>
+                      <b>Valor Levantamento: </b> 
+                      {dataBody.v_lifting} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_lifting_mistake &&
+                    <span>
+                      <b>Erros de Levantamento: </b> 
+                      {dataBody.v_lifting_mistake} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_lifting_correct &&
+                    <span>
+                      <b>Levantamento Correto: </b> 
+                      {dataBody.v_lifting_correct}
+                    </span>
+                  }
+                  {
+                    dataBody.v_initiative &&
+                    <span>
+                      <b>Iniciativa: </b> 
+                      {dataBody.v_initiative} 
+                    </span>
+                  }
+                  {
+                    dataBody.v_initiative_lack &&
+                    <span>
+                      <b>Falta de Iniciativa:</b> 
+                      {dataBody.v_initiative_lack} 
+                    </span>
                   }
                 </Col>
             </Row>
-
             <Row className={`${styles.contentButton}`} >
-              <Button type="button" onClick={() => history.push('/dashboard/teams')} >Voltar</Button>
+              <Button type="button" onClick={() => history.push('/dashboard/scouts')} >Voltar</Button>
               <Button type="button" onClick={() => handleModalOpen(id)} >Editar</Button>
             </Row>
             <Modal isActive={isActive} setIsActive={setIsActive} >
