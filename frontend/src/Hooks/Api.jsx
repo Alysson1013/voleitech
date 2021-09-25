@@ -250,6 +250,7 @@ const getAthleteById = async (token, id) => {
         dt_birth
         function
         n_enrollment_atl
+        n_enrollment_ast
         positions
         n_uniform
         height
@@ -292,6 +293,7 @@ const getAthleteById = async (token, id) => {
 
   try {
     const response = await graphQLClient.request(query)
+    console.log(response)
     return response
   } catch (error) {
     console.log(error)
@@ -735,6 +737,80 @@ const updateScout = async (id, body, token) => {
   }
 }
 
+const getAssistants = async (token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    {
+      assistants {
+        id
+        phone_1
+        email_1
+        name
+        dt_birth
+        function
+        n_enrollment_ast
+        gender
+        teams {
+          name
+          assignment
+        }
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+}
+
+const updateAssistant = async (data, id, token) => {
+
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+  mutation{
+    editCollaborator(
+      filter: {
+        id: ${id}
+      }
+      data: {
+        name: "${data.name}"
+        email_1: "${data.email_1}"
+        phone_1: "${data.phone_1}"
+        n_enrollment_ast: "${data.n_enrollment_ast}"
+        function: "${data.function}"
+        gender: "${data.gender}"
+      }
+    ){
+      name
+      email_1
+      phone_1
+      n_enrollment_ast
+      function
+      gender
+    }
+  }
+  `
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
 
 export {
   getCategories,
@@ -752,5 +828,7 @@ export {
   updateTeam,
   getScouts,
   getScoutById,
-  updateScout
+  updateScout,
+  getAssistants,
+  updateAssistant
 }

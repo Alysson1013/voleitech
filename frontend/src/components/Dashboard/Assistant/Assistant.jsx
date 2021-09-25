@@ -1,22 +1,19 @@
+import React, { useEffect, useState, useContext } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
+import { Container, Row, Col, Card, Form } from 'react-bootstrap';
+import moment from 'moment'
 
-import React, { useContext, useEffect, useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom';
-import { Card, Col, Container, Form, Row } from 'react-bootstrap';
-import moment from 'moment';
-import { Pie } from 'react-chartjs-2'
-
-import { getAthleteById, updateAthlete } from '../../../Hooks/Api';
-import { UserContext } from '../../../UserContext';
-
-import Chart from '../../Chart';
-import Button from '../../Forms/Button';
+import Modal from '../../Modal'
 import Input from '../../Forms/Input';
-import Modal from '../../Modal';
+import Button from '../../Forms/Button'
 import Options from '../Options/Options';
 
-import styles from './Assistant.module.css'
+import { UserContext } from '../../../UserContext';
+import { getAthleteById, updateAssistant, deleteCollaborator } from '../../../Hooks/Api';
 
-export default function Assistant() {
+import styles from './Assistant.module.css';
+
+function Athlete() {
   const { getToken } = useContext(UserContext);
   const token = getToken()
 
@@ -28,58 +25,42 @@ export default function Assistant() {
     phone_1: '',
     function: '',
     dt_birth: '',
-  })
-  const [stateChartPie, setStateChartPie] = useState({
-    labels: ['January', 'February', 'March',
-             'April', 'May'],
-    datasets: []
+    n_enrollment_ast: '',
+    positions: '',
+    n_uniform: 0,
+    height: 0,
+    weight: 0,
+    width: 0,
+    gender: '',
+    bmi: 0,
+    jump_distance: 0,
+    jump_height: 0,
   })
 
   const history = useHistory()
-  const {id} = useParams()
+  const { id } = useParams()
 
   const loadAthlete = async () => {
     const response = await getAthleteById(token, id)
+    console.log("Esse Aqui: ")
+    console.log(response)
     setDataBody({
       ...dataBody,
       name: response.collaborator.name,
-      email: response.collaborator.email,
+      email_1: response.collaborator.email_1,
       phone_1: response.collaborator.phone_1,
       function: response.collaborator.function,
-      dt_birth: Number(moment(new Date()).year()) - Number(moment(response.collaborator.dt_birth).year())
+      dt_birth: Number(moment(new Date()).year()) - Number(moment(response.collaborator.dt_birth).year()),
+      n_enrollment_ast: response.collaborator.n_enrollment_ast,
+      gender: response.collaborator.gender,
     })
   }
 
-  const loadChartData = async () => {
-    setStateChartPie({
-      ...stateChartPie,
-      datasets: [
-        {
-          label: 'Rainfall',
-          backgroundColor: [
-            '#B21F00',
-            '#C9DE00',
-            '#2FDE00',
-            '#00A6B4',
-            '#6800B4'
-          ],
-          hoverBackgroundColor: [
-          '#501800',
-          '#4B5000',
-          '#175000',
-          '#003350',
-          '#35014F'
-          ],
-          data: [65, 59, 80, 81, 56]
-        }
-      ]
-    })
-  }
+  console.log(dataBody)
 
   useEffect(() => {
-    if(id) {
+    if (id) {
       loadAthlete()
-      loadChartData()
     }
   }, [id])
 
@@ -88,15 +69,32 @@ export default function Assistant() {
     setIdAth(id)
   }
 
+  const hadleDeleteButton = async (id, token) => {
+    const isDelete = window.confirm("Você tem certeza que deseja deletar esse atleta?")
+    console.log(id + " - " + token)
+    if (isDelete === true) {
+      console.log(id + " - " + token)
+      await deleteCollaborator(id, token)
+      history.push('/dashboard/assistants')
+    }
+  }
+
+  console.log()
+
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     const body = {
       name: dataBody.name,
+      email_1: dataBody.email_1,
+      phone_1: dataBody.phone_1,
+      n_enrollment_ast: dataBody.n_enrollment_ast,
+      function: dataBody.function,
+      gender: dataBody.gender,
     }
 
     try {
-      await updateAthlete(body, idAth, token)
+      await updateAssistant(body, idAth, token)
       setIsActive(false)
     } catch (e) {
       console.log(e)
@@ -110,17 +108,25 @@ export default function Assistant() {
         <Col className={`${styles.centerCol}`}>
           <Row className={`${styles.containerAbout}`} >
             <Col>
-              <span><b>Nome do Assistente:</b> {dataBody.name} </span>
-              <span><b>Idade:</b> {dataBody.dt_birth} anos </span>
-              <span><b>Telefone/Endereço:</b> {dataBody.phone_1} </span>
-            </Col>
-            <Col className={`${styles.graphicContainer}`}>
-              <div>
-                <Chart TypeChart={Pie} state={stateChartPie} className={`${styles.chartPie}`} />
-              </div>
+              <Row>
+                <span><b className={styles.label}>Nome:</b> {dataBody.name} </span>
+                <span><b className={styles.label}>Idade:</b> {dataBody.dt_birth} anos </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Telefone:</b> {dataBody.phone_1} </span>
+                <span><b className={styles.label}>E-mail:</b> {dataBody.email_1} </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Função:</b> {dataBody.function === "athlete" ? "Atleta" : dataBody.function === "both" ? "Ambos" : "Assistente"} </span>
+                <span><b className={styles.label}>Inscrição:</b> {dataBody.n_enrollment_ast} </span>
+              </Row>
+              <Row>
+                <span><b className={styles.label}>Genêro:</b> {dataBody.gender === "male" ? "Masculino" : "Fêminino"} </span>
+              </Row>
             </Col>
           </Row>
           <Row className={`${styles.contentButton}`} >
+            <Button type="button" onClick={() => hadleDeleteButton(id, token)} >Deletar</Button>
             <Button type="button" onClick={() => history.push('/dashboard/assistants')} >Voltar</Button>
             <Button type="button" onClick={() => handleModalOpen(id)} >Editar</Button>
           </Row>
@@ -133,23 +139,36 @@ export default function Assistant() {
                 <Card.Body>
                   <Form.Row>
                     <Col>
-                      <Input label="Nome" type="text" name="name" onChange={e => setDataBody({...dataBody, name:e.target.value})} value={dataBody.name} />
+                      <Input label="Nome" type="text" name="name" onChange={e => setDataBody({ ...dataBody, name: e.target.value })} value={dataBody.name} />
                     </Col>
                     <Col>
-                      <Input label="E-mail" type="email" name="email" />
-                    </Col>
-                  </Form.Row>
-                  <Form.Row>
-                    <Col>
-                      <Input label="Senha" type="password" name="password" />
-                    </Col>
-                    <Col>
-                      <Input label="Confirmar Senha" type="password" name="password" />
+                      <Input label="E-mail" type="email" name="email_1" onChange={e => setDataBody({ ...dataBody, email_1: e.target.value })} value={dataBody.email_1} />
                     </Col>
                   </Form.Row>
                   <Form.Row>
                     <Col>
-                      <Input label="Número de Inscrição" type="text" name="subscription" />
+                      <Input label="Telefone" type="text" name="phone_1" onChange={e => setDataBody({ ...dataBody, phone_1: e.target.value })} value={dataBody.phone_1} />
+                    </Col>
+                    <Col>
+                      <Input label="Número de Cadastro" type="number" name="n_enrollment_ast" onChange={e => setDataBody({ ...dataBody, n_enrollment_ast: e.target.value })} value={dataBody.n_enrollment_ast} />
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <label htmlFor="function">Função</label>
+                      <select name="function" id="function" className={styles.select} onChange={e => setDataBody({ ...dataBody, function: e.target.value })} value={dataBody.function}>
+                        <option value="athlete"  selected >Atleta</option>
+                        <option value="both">Atleta e Assistente</option>
+                      </select>
+                    </Col>
+                  </Form.Row>
+                  <Form.Row>
+                    <Col>
+                      <label htmlFor="gender">Genero</label>
+                      <select name="gender" id="gender" className={styles.select} onChange={e => setDataBody({ ...dataBody, gender: e.target.value })} value={dataBody.gender}>
+                        <option value="male" selected>Masculino</option>
+                        <option value="female">Feminino</option>
+                      </select>
                     </Col>
                   </Form.Row>
                   <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Editar</Button>
@@ -163,3 +182,5 @@ export default function Assistant() {
     </Container>
   )
 }
+
+export default Athlete

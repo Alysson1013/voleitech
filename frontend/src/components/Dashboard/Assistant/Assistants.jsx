@@ -1,7 +1,7 @@
 import React from 'react'
 import { Card, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { getAthletes } from '../../../Hooks/Api';
+import { getAssistants } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
 
 import styles from './Assistant.module.css'
@@ -12,8 +12,8 @@ const Assistants = () => {
   const [athletes, setAthletes] = React.useState([])
 
   const loadAtheletes = async () => {
-    const response = await getAthletes(token)
-    setAthletes(response.athletes)
+    const response = await getAssistants(token)
+    setAthletes(response.assistants)
   }
 
   React.useEffect(() => {
@@ -32,7 +32,7 @@ const Assistants = () => {
                 <Card.Body>
                   <Card.Title>{value.teams[0].name}</Card.Title>
                   <Card.Text>
-                    {value.n_enrollment_atl}
+                    {value.n_enrollment_ast}
                     <br />
                     <Link to={`/assistant/${value.id}`}>Ver mais sobre o Assistente</Link>
                   </Card.Text>
