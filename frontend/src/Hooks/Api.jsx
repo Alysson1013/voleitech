@@ -644,6 +644,97 @@ const getScoutById = async (token, id) => {
   }
 }
 
+const updateScout = async (id, body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+    mutation {
+      editScout(
+        filter: {
+          id: ${id}
+        }
+        data: {
+          name: "${body.name}"
+          v_floating_serve: ${body.v_floating_serve}
+          v_floating_serve_points: ${body.v_floating_serve_points}
+          v_floating_serve_mistake: ${body.v_floating_serve_mistake}
+          v_trip_serve: ${body.v_trip_serve}
+          v_trip_serve_points: ${body.v_trip_serve_points}
+          v_trip_serve_mistake: ${body.v_trip_serve_mistake}
+          v_attack: ${body.v_attack}
+          v_attack_points: ${body.v_attack_points}
+          v_attack_mistake: ${body.v_attack_mistake}
+          v_box_point: ${body.v_box_point}
+          v_block: ${body.v_block}
+          v_block_mistake: ${body.v_block_mistake}
+          v_block_used_mistake: ${body.v_block_used_mistake}
+          v_block_points: ${body.v_block_points}
+          v_general_passes: ${body.v_general_passes}
+          v_pass_mistake: ${body.v_pass_mistake}
+          v_pass_a: ${body.v_pass_a}
+          v_pass_b: ${body.v_pass_b}
+          v_pass_c: ${body.v_pass_c}
+          v_defense_general: ${body.v_defense_general}
+          v_defense_mistake: ${body.v_defense_mistake}
+          v_defense_a: ${body.v_defense_a}
+          v_defense_b: ${body.v_defense_b}
+          v_defense_c: ${body.v_defense_c}
+          v_lifting: ${body.v_lifting}
+          v_lifting_mistake: ${body.v_lifting_mistake}
+          v_lifting_correct: ${body.v_lifting_correct}
+          v_initiative: ${body.v_initiative}
+          v_initiative_lack: ${body.v_initiative_lack}
+        }
+    ){
+        id
+        name
+        v_floating_serve
+        v_floating_serve_points
+        v_floating_serve_mistake
+        v_trip_serve
+        v_trip_serve_points
+        v_trip_serve_mistake
+        v_attack
+        v_attack_points
+        v_attack_mistake
+        v_box_point
+        v_block
+        v_block_mistake
+        v_block_used_mistake
+        v_block_points
+        v_general_passes
+        v_pass_mistake
+        v_pass_a
+        v_pass_b
+        v_pass_c
+        v_defense_general
+        v_defense_mistake
+        v_defense_a
+        v_defense_b
+        v_defense_c
+        v_lifting
+        v_lifting_mistake
+        v_lifting_correct
+        v_initiative
+        v_initiative_lack
+    }
+  }
+  `
+
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 
 export {
   getCategories,
@@ -660,5 +751,6 @@ export {
   createTeam,
   updateTeam,
   getScouts,
-  getScoutById
+  getScoutById,
+  updateScout
 }
