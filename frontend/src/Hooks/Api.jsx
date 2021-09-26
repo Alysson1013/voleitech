@@ -812,6 +812,35 @@ const updateAssistant = async (data, id, token) => {
   }
 }
 
+const createCategory = async (body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+    mutation {
+      newCategory(data: {
+        name_category: "${body.name_category}"
+        describe: "${body.describe}"
+      }){
+        name_category
+        describe
+      }
+    }
+  `
+
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   getCategories,
   signUpUser,
@@ -830,5 +859,6 @@ export {
   getScoutById,
   updateScout,
   getAssistants,
-  updateAssistant
+  updateAssistant,
+  createCategory
 }

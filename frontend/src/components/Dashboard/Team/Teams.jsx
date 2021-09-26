@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Card, Col, Row, Form } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import { createTeam, getCategories, getTeams } from '../../../Hooks/Api';
+import { createTeam, getCategories, getTeams, createCategory } from '../../../Hooks/Api';
 import { UserContext } from '../../../UserContext';
 
 import styles from './Team.module.css';
@@ -73,7 +73,19 @@ const Teams = () => {
     loadCategories()
   }, [token])
 
-  console.log(categories)
+  async function newCategory(e){
+    e.preventDefault()
+
+    const name = prompt("Digite o nome da categoria")
+    const describe = prompt("Digite a descrição da categoria")
+
+    const response = await createCategory({
+      name_category: name,
+      describe: describe
+    }, token)
+
+    loadCategories()
+  }
 
   return (
     <>
@@ -144,6 +156,7 @@ const Teams = () => {
                         ))
                       }
                     </select>
+                    <p className={styles.category} onClick={newCategory}>Nova Categoria</p>
                   </Col>
                 </Form.Row>
                 <Form.Row>

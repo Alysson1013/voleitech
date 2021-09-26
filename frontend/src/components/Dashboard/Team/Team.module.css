@@ -79,6 +79,11 @@
   background-color: #545454;
 }
 
+.category {
+  cursor: pointer;
+  color: #fb1;
+}
+
 .select {
   border: 1px solid #eee;
   display: block;
