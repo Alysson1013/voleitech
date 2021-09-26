@@ -79,7 +79,7 @@ const Teams = () => {
     const name = prompt("Digite o nome da categoria")
     const describe = prompt("Digite a descrição da categoria")
 
-    const response = await createCategory({
+    await createCategory({
       name_category: name,
       describe: describe
     }, token)

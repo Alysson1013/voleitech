@@ -5,7 +5,7 @@ import Route from './Route'
 import Home from '../pages/Home'
 import DashboardMain from '../components/Dashboard/Main/DashboardMain'
 import Athletes from '../components/Dashboard/Athlete/Athletes'
-import Training from '../components/Dashboard/Training/Training'
+import Trainings from '../components/Dashboard/Training/Trainings'
 import User from '../components/Dashboard/User/User'
 import Scouts from '../components/Dashboard/Scouts/Scouts'
 import Scout from '../components/Dashboard/Scouts/Scout'
@@ -32,7 +32,7 @@ export default function Routes() {
       <Route path="/athlete/:id" isPrivate component={Athlete} />
       <Route path="/dashboard/teams" component={<Teams />} />
       <Route path="/team/:id" component={Team} />
-      <Route path="/dashboard/trainings" component={<Training />} />
+      <Route path="/dashboard/trainings" component={<Trainings />} />
       <Route path="/dashboard/assistants" component={<Assistants />} />
       <Route path="/assistant/:id" component={Assistant} />
       <Route path="/dashoboard/user" component={<User />} />
