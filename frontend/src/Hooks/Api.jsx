@@ -795,6 +795,7 @@ const updateAssistant = async (data, id, token) => {
         gender: "${data.gender}"
       }
     ){
+      id
       name
       email_1
       phone_1
@@ -855,6 +856,7 @@ const getTrainings = async (token) => {
           training_type_name
           describe
         }
+        id
         name
         dt_training
         hour_start
@@ -1018,6 +1020,62 @@ const createTrainingType = async (body, token) => {
   }
 }
 
+const createTraining = async (body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const days = body.dt_training.substring(0, 2)
+  const month = body.dt_training.substring(3, 5)
+  const year = body.dt_training.substring(6, 10)
+
+  const mutation = gql`
+    mutation {
+      newTraining(
+        data: {
+          training_type: {
+            id: ${body.type_id}
+          }
+          scout: {
+            id: ${body.scout_id}
+          }
+          team: {
+            id: ${body.team_id}
+          }
+          dt_training: "${year}-${month}-${days}"
+          name: "${body.name}"
+          hour_start: "${body.hour_start}"
+          hour_finish: "${body.hour_finish}"
+        }
+      ){
+        training_type {
+          training_type_name
+          describe
+        }
+        scout{
+          name
+        }
+        id
+        name
+        dt_training
+        hour_start
+        hour_finish
+      }
+    }
+  `
+
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   getCategories,
   signUpUser,
@@ -1041,5 +1099,6 @@ export {
   getTrainings,
   getTrainingsTypes,
   createTrainingType,
-  createScout
+  createScout,
+  createTraining
 }

@@ -13,7 +13,9 @@ import {
   getTrainingsTypes,
   createTrainingType,
   getScouts,
-  createScout
+  createScout,
+  createTraining,
+  getTeams
 } from '../../../Hooks/Api'
 
 function Trainings() {
@@ -23,6 +25,7 @@ function Trainings() {
   const [trainingsTypes, setTrainingsTypes] = useState([])
   const [isActive, setIsActive] = useState(false)
   const [scouts, setScouts] = useState([])
+  const [teams, setTeams] = useState([])
   const [newScout, setNewScout] = useState(false)
   const [dataBody, setDataBody] = useState({
     training_type_name: '',
@@ -32,7 +35,8 @@ function Trainings() {
     hour_start: '',
     hour_finish: '',
     type_id: 0,
-    scout_id: 0
+    scout_id: 0,
+    team_id: 0
   })
   const [scoutBody, setScoutBody] = useState({
       name: '',
@@ -82,6 +86,11 @@ function Trainings() {
     setScouts(response.scouts)
   }
 
+  const loadTeams = async () => {
+    const response = await getTeams(token)
+    setTeams(response.teams)
+  }
+
   function handleModalOpen() {
     setIsActive(true)
   }
@@ -94,6 +103,7 @@ function Trainings() {
     loadTrainings()
     loadTrainingsTypes()
     loadScouts()
+    loadTeams()
   }, [token])
 
   async function newType(e) {
@@ -113,10 +123,15 @@ function Trainings() {
     )
   }
 
+  console.log(trainingsTypes)
+
   async function handleSubmit(e) {
     e.preventDefault()
 
-    console.log(dataBody)
+    createTraining(dataBody, token)
+    setIsActive(false)
+
+    loadTrainings()
   }
 
   async function addScout() {
@@ -129,6 +144,8 @@ function Trainings() {
 
     setNewScout(false)
   }
+
+  console.log(trainingsTypes)
 
   return (
     <Col className={`${styles.centerCol}`}>
@@ -175,12 +192,15 @@ function Trainings() {
                   <label htmlFor="type_id">Tipo de Treino</label>
                   <select name="type_id" id="type_id" className={styles.select} onChange={e => setDataBody({ ...dataBody, type_id: e.target.value })} value={dataBody.type_id}>
                     {
-                      trainingsTypes.map(trainingType => (
-                        <option value={trainingType?.id} selected >{trainingType?.training_type_name}</option>
-                      ))
+                      trainingsTypes.map(value => (
+                        <option value={value.id}>
+                          {value.training_type_name}
+                        </option>
+                    ))
                     }
+                    <option value={null} selected > Selecionar </option>
                   </select>
-                  <p className={styles.category} onClick={newType}>Nova Categoria</p>
+                  <p className={styles.category} onClick={newType}>Novo Tipo de Treino</p>
                 </Col>
               </Form.Row>
               <Form.Row>
@@ -204,19 +224,29 @@ function Trainings() {
                   <label htmlFor="scout_id">Scout Usado</label>
                   <select name="scout_id" id="scout_id" className={styles.select} onChange={e => setDataBody({ ...dataBody, scout_id: e.target.value })} value={dataBody.scout_id}>
                     {
-                      scouts.map(value => {
-                        if (value.id) {
-                          return (
-                            <option value={value.id} selected >
+                      scouts.map(value => (
+                            <option value={value.id}>
                               {value.name}
                             </option>
-                          )
-                        }
-                      })
+                      ))
                     }
+                    <option value={null} selected > Selecionar </option>
                   </select>
                   <p className={styles.category} onClick={openModalScout}>Novo Scout</p>
                 </Col>
+                <Col>
+                  <label htmlFor="team">Time Inicial</label>
+                  <select name="team" id="team" className={styles.select} onChange={e => setDataBody({ ...dataBody, team_id: e.target.value })} value={dataBody.team_id}>
+                    {
+                      teams.map(team => (
+                        <option value={team.id}>
+                          {team.name}
+                        </option>
+                      ))
+                    }
+                    <option value={null} selected > Selecionar </option>
+                  </select>
+                 </Col> 
               </Form.Row>
               <Button type="submit" className={`dropdown animate__animated animate__fadeInUp`}>Adicionar</Button>
             </Card.Body>
