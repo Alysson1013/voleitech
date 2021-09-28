@@ -8,6 +8,7 @@ import Training from '../Training/Trainings'
 import Scouts from '../Scouts/Scouts'
 import Teams from '../Team/Teams'
 import Assistants from '../Assistant/Assistants'
+import User from '../User/User'
 
 const teste = [
   "teste1",
@@ -50,7 +51,8 @@ function DashboardMain() {
             location.pathname === '/dashboard/teams' && <Teams /> ||
             location.pathname === '/dashboard/trainings' && <Training /> ||
             location.pathname === '/dashboard/scouts' && <Scouts /> ||
-            location.pathname === '/dashboard/assistants' && <Assistants />
+            location.pathname === '/dashboard/assistants' && <Assistants /> ||
+            location.pathname === '/dashboard/user' && <User />
           }
         </Col>
       </Row>

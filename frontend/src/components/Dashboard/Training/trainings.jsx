@@ -128,7 +128,7 @@ function Trainings() {
   async function handleSubmit(e) {
     e.preventDefault()
 
-    createTraining(dataBody, token)
+    await createTraining(dataBody, token)
     setIsActive(false)
 
     loadTrainings()

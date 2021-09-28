@@ -95,3 +95,13 @@
   transition: 0.2s;
   margin-bottom: 5px;
 }
+
+.label{
+  margin-top: 20px;
+}
+
+.but {
+  font-size: 2rem;
+  cursor: pointer;
+  margin-left: 5px;
+}

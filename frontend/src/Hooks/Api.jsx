@@ -424,6 +424,7 @@ const getTeamById = async (id, token) => {
         average_height
         average_weight
         collaborators {
+          id
           name
           function
         } 
@@ -636,6 +637,8 @@ const getScoutById = async (token, id) => {
       }
     }
   `
+
+  console.log(query)
 
   try {
     const response = await graphQLClient.request(query)
@@ -1076,6 +1079,199 @@ const createTraining = async (body, token) => {
   }
 }
 
+const getTrainingById = async (id, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const query = gql`
+    query{
+      training(
+        filter:{
+          id: ${id}
+        }
+      ){
+        id
+        name
+        dt_training
+        hour_start
+        hour_finish
+        training_type {
+          id
+          training_type_name
+        }
+        team {
+          id
+          name
+        }
+        scout {
+          id
+          name
+        }
+      }
+    }
+  `
+  try {
+    const response = await graphQLClient.request(query)
+    return response
+  } catch (error) {
+    console.log(error)
+    return;
+  }
+}
+
+const createResult = async (body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+    mutation {
+      newResult(data: {
+        n_floating_serve: ${body.v_floating_serve}
+        n_floating_serve_points: ${body.v_floating_serve_points}
+        n_floating_serve_mistake: ${body.v_floating_serve_mistake}
+        n_trip_serve: ${body.v_trip_serve}
+        n_trip_serve_points: ${body.v_trip_serve_points}
+        n_trip_serve_mistake: ${body.v_trip_serve_mistake}
+        n_attack: ${body.v_attack}
+        n_attack_points: ${body.v_attack_points}
+        n_attack_mistake: ${body.v_attack_mistake}
+        n_box_point: ${body.v_box_point}
+        n_block: ${body.v_block}
+        n_block_mistake: ${body.v_block_mistake}
+        n_block_used_mistake: ${body.v_block_used_mistake}
+        n_block_points: ${body.v_block_points}
+        n_general_passes: ${body.v_general_passes}
+        n_pass_mistake: ${body.v_pass_mistake}
+        n_pass_a: ${body.v_pass_a}
+        n_pass_b: ${body.v_pass_b}
+        n_pass_c: ${body.v_pass_c}
+        n_defense_general: ${body.v_defense_general}
+        n_defense_mistake: ${body.v_defense_mistake}
+        n_defense_a: ${body.v_defense_a}
+        n_defense_b: ${body.v_defense_b}
+        n_defense_c: ${body.v_defense_c}
+        n_lifting: ${body.v_lifting}
+        n_lifting_mistake: ${body.v_lifting_mistake}
+        n_lifting_correct: ${body.v_lifting_correct}
+        n_initiative: ${body.v_initiative}
+        n_initiative_lack: ${body.v_initiative_lack}
+        general_points: ${body.general_points}
+      }){
+        id
+        n_floating_serve
+        n_floating_serve_points
+        n_floating_serve_mistake
+        n_trip_serve
+        n_trip_serve_points
+        n_trip_serve_mistake
+        n_attack
+        n_attack_points
+        n_attack_mistake
+        n_box_point
+        n_block
+        n_block_mistake
+        n_block_used_mistake
+        n_block_points
+        n_general_passes
+        n_pass_mistake
+        n_pass_a
+        n_pass_b
+        n_pass_c
+        n_defense_general
+        n_defense_mistake
+        n_defense_a
+        n_defense_b
+        n_defense_c
+        n_lifting
+        n_lifting_mistake
+        n_lifting_correct
+        n_initiative
+        n_initiative_lack
+        general_points
+      }
+    }
+  `
+
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const createAthleteTrainingResult = async (body, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+
+  const mutation = gql`
+    mutation{
+      newAthleteTrainingResult(data: {
+        collaborator_athlete_id: ${body.athlete_id}
+        training_id: ${body.training_id}
+        result_id: ${body.result_id}
+      }){
+        id
+        training_id
+        result_id
+        collaborator_athlete_id
+      }
+    }
+  `
+
+  console.log(mutation)
+
+  try {
+    const response = await graphQLClient.request(mutation)
+    console.log(response)
+  } catch (error) {
+    console.log(error)
+  }
+} 
+
+const getUserData = async (id, token) => {
+  const graphQLClient = new GraphQLClient(endpoint, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    }
+  })
+  
+  const query = gql`
+    {
+      user(filter:{
+        id: ${id}
+      }){
+        id
+        name
+        email
+        n_enrollment
+        describe
+        dt_birth
+      }
+    }
+  `
+
+  try {
+    const response = await graphQLClient.request(query)
+    console.log(response)
+    return response
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 export {
   getCategories,
   signUpUser,
@@ -1100,5 +1296,9 @@ export {
   getTrainingsTypes,
   createTrainingType,
   createScout,
-  createTraining
+  createTraining,
+  getTrainingById,
+  createResult,
+  createAthleteTrainingResult,
+  getUserData
 }
